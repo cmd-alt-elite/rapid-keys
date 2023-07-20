@@ -27,6 +27,7 @@ class Game extends Component {
             finalWPM: 0,
 
             timerKey: 0,
+            canStart: false,
 
             status: props.status
         }
@@ -34,7 +35,11 @@ class Game extends Component {
 
     componentDidMount(){
         socket.on("game_start", (leBool)=>{
-            console.log(leBool);
+            this.setState({
+                startedOnce: leBool,
+                started: leBool,
+                finished: !leBool,
+            })
             console.log("this confirms that you are loser");
         })
         let { id } = this.props.params;
@@ -46,6 +51,17 @@ class Game extends Component {
         });
     }
 
+    componentDidUpdate(){
+        socket.on("game_start", (leBool)=>{
+            this.setState({
+                startedOnce: leBool,
+                started: leBool,
+                finished: !leBool,
+            })
+            console.log("this confirms that you are loser");
+        })
+    }
+
     startGame(){
         // console.log(this.state.startTimeFrom);
         this.setState({
@@ -54,10 +70,6 @@ class Game extends Component {
             finished: false,
         })
     }
-
-    updateTempWPM(nextState) {
-        this.setState({currentWPM: nextState});
-      }
 
     handleUserInputChange(e){
         this.setState({
@@ -72,18 +84,21 @@ class Game extends Component {
                 finished: true,
                 userInput: ""
             })
-            // calculate wpm
-            // navigate 
         }
-            
-        
     }
 
 	render(){
 		return(
 			<div className={styles.gameWrapper}>
                 <h3>Rapid Keys</h3>
-                {!this.state.startedOnce ? <button onClick={this.startGame.bind(this)}>Start Typing</button>: null}
+                {!this.state.startedOnce ? <div>
+                        <button onClick={this.startGame.bind(this)}>
+                            Start Typing
+                        </button>
+                        <br />
+                        The game will start soon.
+                        </div>: null
+                }
                 <div>
                     {this.state.startedOnce ? <Timer finished={this.state.finished} started={this.started} userInput={this.state.userInput} updateTempWPM={this.updateTempWPM}></Timer> : null}
                 </div>
@@ -116,7 +131,6 @@ class Game extends Component {
                     </div>
                     
                 </div>}
-                <div>{this.state.currentWPM}</div>
                 {this.state.finished && <button onClick={()=>{window.location.reload(false)}}>New Test</button>}
 			</div>
 		)
