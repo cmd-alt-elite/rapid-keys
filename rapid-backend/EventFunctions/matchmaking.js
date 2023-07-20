@@ -2,16 +2,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 const ROOM_CAPACITY = 4;
 
-export const joinRoom = (socket, data) => {
-    console.log(`Joining room ${data.room}`);
-    socket.join(data.room);
-};
-
-export const leaveRoom = (socket, data) => {
-    console.log(`Leaving room ${data.room}`);
-    socket.leave(data.room);
-};
-
 export const findMatch = (io, socket, data) => {
     console.log(data);
 
