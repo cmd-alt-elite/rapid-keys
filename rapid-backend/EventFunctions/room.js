@@ -3,6 +3,7 @@ import { ROOM_CAPACITY } from "./matchmaking.js";
 export const joinRoom = (io, socket, data) => {
     console.log(`Joining room ${data.room}`);
     socket.join(data.room);
+    io.in(data.room).emit('player_joined', data.username);
     
     let room = io.sockets.adapter.rooms.get(data.room);
     if (room.size === ROOM_CAPACITY) {
@@ -16,12 +17,6 @@ export const leaveRoom = (socket, data) => {
     socket.leave(data.room);
 };
 
-export const playersInRoom = (io, data) => {
-    let room = io.sockets.adapter.rooms.get(data.room);
-    console.log(`Players in room: ${room.size}/${ROOM_CAPACITY}`);
-    io.in(data.room).emit('players_in_room', {size: room.size, capacity: ROOM_CAPACITY});
-}
-
 export const sendProgress = (io, data) => {
     io.in(data.room).emit('receive_progress', data);
-}
+};

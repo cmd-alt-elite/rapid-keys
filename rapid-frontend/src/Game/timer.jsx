@@ -33,7 +33,7 @@ class Timer extends Component{
 			});
 		}
 		if(this.state.timerTime !== prevState.timerTime){
-			this.setState({currentWPM: 12000*this.props.userInput.length/(this.state.timerTime)});
+			this.setState({currentWPM: Math.round(12000*this.props.userInput.length/(this.state.timerTime))});
 		}
 	}
 

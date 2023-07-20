@@ -13,6 +13,8 @@ const options = [
 ];
 const defaultOption = options[1];
 
+export var nameArr = [];
+
 export const socket = io.connect("https://rapid-keys-back.onrender.com/");
 
 function Sockets() {
@@ -37,7 +39,7 @@ function Sockets() {
   }
 
   const handleJoinRoom = ()=>{
-    socket.emit("join_room", {"room": room});
+    socket.emit("join_room", {"room": room, "username": username});
     navigate('/game/' + room, { replace: true });
   }
 
@@ -47,6 +49,11 @@ function Sockets() {
       setRoom(room);
       console.log("match found!");
     });
+    socket.on("player_joined", (name)=>{
+      console.log(name);
+      nameArr.push(name);
+    })
+    console.log(nameArr);
   }, [socket]);
 
   const onSelect = (option) => {
