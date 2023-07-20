@@ -40,7 +40,7 @@ function Sockets() {
       console.log("room number alloted is  " + room);
       setRoom(room);
       console.log("match found!");
-      navigate('/games' + room, { replace: true });
+      navigate('/game/' + room, { replace: true });
     });
   }, [socket]);
 
