@@ -16,6 +16,12 @@ export const leaveRoom = (socket, data) => {
     socket.leave(data.room);
 };
 
+export const playersInRoom = (io, data) => {
+    let room = io.sockets.adapter.rooms.get(data.room);
+    console.log(`Players in room: ${room.size}/${ROOM_CAPACITY}`);
+    io.in(data.room).emit('players_in_room', {size: room.size, capacity: ROOM_CAPACITY});
+}
+
 export const sendProgress = (io, data) => {
-    io.in(data.room).emit('update_progress', data);
+    io.in(data.room).emit('receive_progress', data);
 }
