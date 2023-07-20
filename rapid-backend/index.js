@@ -13,7 +13,7 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
     cors: {
-      origin: "http://localhost:3000",
+      origin: '*',
       methods: ["GET", "POST"],
     },
   });
@@ -29,6 +29,10 @@ io.on('connection', (socket) => {
     socket.on('send_stats', (data) => {
         console.log(data.message + socket.id);
         io.in(data.room).emit('receive_stats', data.message, socket.id);
+    });
+
+    socket.on('disconnecting', () => {
+        console.log(`User disconnected: ${socket.id}`);
     });
 });
 
