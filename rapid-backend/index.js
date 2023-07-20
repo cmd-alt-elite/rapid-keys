@@ -2,6 +2,8 @@ import express from 'express';
 import http from 'http';
 import cors from 'cors';
 import { Server } from 'socket.io';
+import { joinRoom, leaveRoom } from './EventFunctions/matchmaking';
+import { sendStats } from './EventFunctions/in-game';
 
 const PORT = process.env.PORT || 8000;
 
@@ -21,19 +23,13 @@ const io = new Server(server, {
 io.on('connection', (socket) => {
     console.log(`User connected: ${socket.id}`);
 
-    socket.on('join_room', (data) => {
-        console.log("joined room" + data);
-        socket.join(data);
-    });
+    socket.on('join_room', joinRoom(socket, data));
+    socket.on('leave_room', leaveRoom(socket, data));
+    socket.on('send_stats', sendStats(io, socket, data));
 
-    socket.on('send_stats', (data) => {
-        console.log(data.message + socket.id);
-        io.in(data.room).emit('receive_stats', data.message, socket.id);
-    });
-
-    socket.on('disconnecting', () => {
-        console.log(`User disconnected: ${socket.id}`);
-    });
+    socket.on('find_match', (data) => {
+        console.log(`Available rooms: ${socket.rooms}`);
+    }); 
 });
 
 server.listen(PORT, () => {
