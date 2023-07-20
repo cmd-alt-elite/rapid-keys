@@ -25,7 +25,7 @@ export const findMatch = (io, socket, data) => {
             
             if (players.size < ROOM_CAPACITY) {
                 console.log(`Room found with available spots: ${room}`)
-                io.in(socket.id).emit('receive_match', room);
+                socket.emit('receive_match', room);
                 roomExists = true;
                 break;
             }
