@@ -51,7 +51,7 @@ class Game extends Component {
             })
             this.inputRef.current.value = ""; 
             
-            
+            console.log()
             // get incorrect and correct count
             // calculate wpm
             // navigate 
@@ -83,6 +83,7 @@ class Game extends Component {
                         {this.state.testContent.split('').map((ch, i) => {
                             let color;
                             if (i < this.state.userInput.length) {
+                                ch === this.state.userInput[i] ? this.setState({correctChars: this.state.correctChars+1}) : this.setState({errorCnt: this.state.errorCnt+1});
                                 color =
                                     ch === this.state.userInput[i]
                                         ? '#197f0b'
