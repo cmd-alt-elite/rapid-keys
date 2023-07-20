@@ -2,13 +2,18 @@ import React, { Component, createRef } from "react";
 import { generate } from "random-words";
 import styles from './game.module.css';
 import Timer from "./timer";
+import { useParams } from "react-router-dom";
+
+function withParams(Component) {
+  return props => <Component {...props} params={useParams()} />;
+}
 
 class Game extends Component {
 	constructor(props) {
         super(props);
         this.inputRef = createRef();
         this.state = {
-            testContent: "The quick brown fox jumps over the lazy dog$",
+            testContent: "The quick brown fox jumps over the lazy dog",
 
             userInput: "",
             correctChars: 0,
@@ -24,9 +29,11 @@ class Game extends Component {
         }}
 
     componentDidMount(){
-        const material =  generate({exactly: 25, join: " "});
+        let { id } = this.props.params;
+        const material =  generate({exactly: 25, join: " ", seed: id});
+        console.log(material)
         this.setState({
-            testContent:material+"$",
+            testContent: material,
         });
     }
 
@@ -40,22 +47,32 @@ class Game extends Component {
     }
 
     handleUserInputChange(e){
+
         this.setState({
             userInput: e.target.value
         })
-        if(e.target.value.slice(-1) === "$"){
-            this.setState({
-                started: false,
-                finished: true,
-                userInput: ""
-            })
-            this.inputRef.current.value = ""; 
+        // if(e.target.value.slice(-1) === "$"){
+            if(e.target.value === this.state.testContent){
+                
+                this.inputRef.current.value = ""; 
+                
+                console.log(this.state.correctChars);
+                
+                // console.log(this.state.userInput);
+                // console.log(this.state.testContent);
+                
+                // console.log(this.state.userInput === this.state.testContent);
+                this.setState({
+                    started: false,
+                    finished: true,
+                    userInput: ""
+                })
+                // get incorrect and correct count
+                // calculate wpm
+                // navigate 
+            }
             
-            console.log()
-            // get incorrect and correct count
-            // calculate wpm
-            // navigate 
-        }
+        // }
         
     }
 
@@ -76,14 +93,13 @@ class Game extends Component {
                             placeholder="Start typing..."
                             onChange={(e) => this.handleUserInputChange(e)}
                             autoFocus
-                            rows="1"
                         ></input>
                     </div>
                     <div className={styles.promptContainer}>
                         {this.state.testContent.split('').map((ch, i) => {
                             let color;
                             if (i < this.state.userInput.length) {
-                                ch === this.state.userInput[i] ? this.setState({correctChars: this.state.correctChars+1}) : this.setState({errorCnt: this.state.errorCnt+1});
+                                // ch === this.state.userInput[i] ? this.setState({correctChars: this.state.correctChars+1}) : this.setState({errorCnt: this.state.errorCnt+1});
                                 color =
                                     ch === this.state.userInput[i]
                                         ? '#197f0b'
@@ -103,4 +119,4 @@ class Game extends Component {
 	}
 }
  
-export default Game;
+export default withParams(Game);
