@@ -5,6 +5,7 @@ import { Server } from 'socket.io';
 import { findMatch } from './EventFunctions/matchmaking.js';
 import { sendStats } from './EventFunctions/in-game.js';
 import { joinRoom, leaveRoom } from './EventFunctions/room.js';
+import roomsRoutes from './routes/rooms.js';
 
 const PORT = process.env.PORT || 8000;
 
@@ -13,6 +14,8 @@ app.use(express.json());
 app.use(cors());
 
 const server = http.createServer(app);
+
+app.use('/rooms', roomsRoutes);
 
 const io = new Server(server, {
     cors: {
