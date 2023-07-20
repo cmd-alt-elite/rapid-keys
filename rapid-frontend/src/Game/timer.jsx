@@ -9,12 +9,14 @@ class Timer extends Component{
 			started: props.started,
 			finished: props.finished,
             timerTime: 0,
+			userInput: props.userInput,
+			currentWPM: 0,
+			finalWPM: 0
         }
 		this.baseState = this.state;
     }
 
 	componentDidMount(){
-		console.log(this.state.timerTime);
 		this.startTimer();
 	}
 
@@ -22,14 +24,16 @@ class Timer extends Component{
 		clearInterval(this.timer);
 	}
 
-	componentDidUpdate(prevProps){
+	componentDidUpdate(prevProps, prevState){
 		if(this.props.finished !== prevProps.finished){
 			clearInterval(this.timer);
-			console.log(this.state.timerTime);
 			this.setState({
 				timerOn: false,
 				timerStart: 0,
 			});
+		}
+		if(this.state.timerTime !== prevState.timerTime){
+			this.setState({currentWPM: 12000*this.props.userInput.length/(this.state.timerTime)});
 		}
 	}
 
@@ -56,7 +60,11 @@ class Timer extends Component{
 	}
 	render(){
 		return(
-			<div className="countdown">Timer: {Math.floor(this.state.timerTime/1000)}</div>
+			<div>
+				<div className="countdown">Timer: {Math.floor(this.state.timerTime/1000)}</div>
+				<br />
+				<div>WPM: {this.state.currentWPM}</div>
+			</div>
 		)
 	}
 }
