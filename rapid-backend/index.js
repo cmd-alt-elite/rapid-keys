@@ -23,9 +23,9 @@ const io = new Server(server, {
 io.on('connection', (socket) => {
     console.log(`User connected: ${socket.id}`);
 
-    socket.on('join_room', joinRoom(socket, data));
-    socket.on('leave_room', leaveRoom(socket, data));
-    socket.on('send_stats', sendStats(io, socket, data));
+    socket.on('join_room', (data) => joinRoom(socket, data));
+    socket.on('leave_room', (data) => leaveRoom(socket, data));
+    socket.on('send_stats', (data) => sendStats(io, socket, data));
 
     socket.on('find_match', (data) => {
         console.log(`Available rooms: ${socket.rooms}`);
