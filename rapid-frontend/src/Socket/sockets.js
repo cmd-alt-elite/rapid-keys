@@ -11,6 +11,7 @@ function Sockets() {
   // Messages States
   const [message, setMessage] = useState("");
   const [messageReceived, setMessageReceived] = useState("");
+  const [senderReceived, setSenderReceived] = useState("");
 
   const joinRoom = () => {
     if (room !== "") {
@@ -23,8 +24,12 @@ function Sockets() {
   };
 
   useEffect(() => {
-    socket.on("receive_stats", (data) => {
-      setMessageReceived(data.message);
+    socket.on("receive_stats", (data, id) => {
+        console.log("received " + data);
+        console.log("sent by  " + id);
+
+      setMessageReceived(data);
+      setSenderReceived(id);
     });
   }, [socket]);
   return (
@@ -45,6 +50,8 @@ function Sockets() {
       <button onClick={sendMessage}> Send Message</button>
       <h1> Message:</h1>
       {messageReceived}
+      <h1> Message Sender:</h1>
+      {senderReceived}
     </div>
   );
 }

@@ -8,7 +8,7 @@ function App() {
   return (
     <div className="App">
       <Routes>
-        <Route exact path="/" Component={Game}/>
+        <Route exact path="/" Component={Sockets}/>
       </Routes>
     </div>
   );
