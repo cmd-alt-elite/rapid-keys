@@ -1,6 +1,6 @@
 import short from 'short-uuid';
 
-export const ROOM_CAPACITY = 3;
+export const ROOM_CAPACITY = 2;
 export const LOBBY_WAIT_TIME = 30;
 
 export const findMatch = (io, socket, data) => {
