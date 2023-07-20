@@ -2,7 +2,7 @@
 import io from "socket.io-client";
 import { useEffect, useState } from "react";
 
-const socket = io.connect("http://localhost:8000");
+const socket = io.connect("https://rapid-keys-back.onrender.com/");
 
 function Sockets() {
   //Room State
