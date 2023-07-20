@@ -16,6 +16,7 @@ export const findMatch = (io, socket, data) => {
     console.log(data);
 
     let rooms = io.sockets.adapter.rooms;
+    console.log(rooms);
 
     let roomExists = false;
 
