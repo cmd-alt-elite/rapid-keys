@@ -21,7 +21,7 @@ io.on('connection', (socket) => {
     });
 
     socket.on('send_stats', (data) => {
-        socket.to(data.room).emit('receive_stats', stats);
+        socket.to(data.room).emit('receive_stats', {sender: socket.id, stats: data});
     });
 });
 
