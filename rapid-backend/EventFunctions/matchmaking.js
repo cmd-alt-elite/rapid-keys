@@ -36,6 +36,6 @@ export const findMatch = (io, socket, data) => {
         console.log('No available rooms found.')
         const newRoomId = "_" + uuidv4();
         console.log(`Generating new room with ID: ${newRoomId}`);
-        io.to(data.userId).emit(newRoomId);
+        socket.emit('receive_match', newRoomId);
     }
 };
