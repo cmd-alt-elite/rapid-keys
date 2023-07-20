@@ -5,8 +5,6 @@ export const LOBBY_WAIT_TIME = 30;
 
 export const findMatch = (io, socket, data) => {
     // console.log(data);
-
-    if (data.username) socket.username = data.username;
     
     const difficulty = data.difficulty.toString();
 
