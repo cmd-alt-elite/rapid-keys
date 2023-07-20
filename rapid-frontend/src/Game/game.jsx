@@ -92,10 +92,6 @@ class Game extends Component {
 			<div className={styles.gameWrapper}>
                 <h3>Rapid Keys</h3>
                 {!this.state.startedOnce ? <div>
-                        <button onClick={this.startGame.bind(this)}>
-                            Start Typing
-                        </button>
-                        <br />
                         The game will start soon.
                         </div>: null
                 }
