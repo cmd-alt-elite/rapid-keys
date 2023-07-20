@@ -37,6 +37,7 @@ function Sockets() {
   }
 
   const handleJoinRoom = ()=>{
+    socket.emit("join_room", {"room": room});
     navigate('/game/' + room, { replace: true });
   }
 
@@ -44,7 +45,6 @@ function Sockets() {
     socket.on("receive_match", (room) => {
       console.log("room number alloted is  " + room);
       setRoom(room);
-      socket.emit("join_room", {"room": room});
       console.log("match found!");
     });
   }, [socket]);
