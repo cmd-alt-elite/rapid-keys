@@ -13,7 +13,7 @@ const options = [
 ];
 const defaultOption = options[1];
 
-const socket = io.connect("https://rapid-keys-back.onrender.com/");
+export const socket = io.connect("https://rapid-keys-back.onrender.com/");
 
 function Sockets() {
   const navigate = useNavigate();
@@ -68,9 +68,10 @@ function Sockets() {
       <div className="difficulty-dropdown"><Dropdown options={options} value={defaultOption} placeholder="Select an option" onChange={onSelect} /></div>
       
       <button onClick={makeMatch} className="match-button"> Enter Matchmaking!</button>
-      <button onClick={handleJoinRoom}>Join Room</button>
       <h3> Alloted Room :</h3>
-      {roomReceived}
+      {room}
+      <br />
+      {room && <button onClick={handleJoinRoom}>Join Room</button>}
     </div>
   );
 }
