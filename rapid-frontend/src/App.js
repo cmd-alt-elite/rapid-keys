@@ -9,6 +9,7 @@ function App() {
     <div className="App">
       <Routes>
         <Route exact path="/" Component={Sockets}/>
+        <Route path="/game/:id" Component={Game}/>
       </Routes>
     </div>
   );
