@@ -67,7 +67,18 @@ class Game extends Component {
                 <div>
                     {this.state.startedOnce ? <Timer finished={this.state.finished} startTimeFrom={this.state.startTimeFrom} started={this.started}></Timer> : null}
                 </div>
-                {this.state.startedOnce && <div>
+                {this.state.startedOnce && 
+                <div className={styles.testWrapper}>
+                    <div>
+                        <input
+                            ref={this.inputRef}
+                            className={styles.testInput}
+                            placeholder="Start typing..."
+                            onChange={(e) => this.handleUserInputChange(e)}
+                            autoFocus
+                            rows="1"
+                        ></input>
+                    </div>
                     <div className={styles.promptContainer}>
                         {this.state.testContent.split('').map((ch, i) => {
                             let color;
@@ -83,17 +94,7 @@ class Game extends Component {
                             );
                         })}
                     </div>
-                    <div>
-                        <textarea
-                            ref={this.inputRef}
-                            className="test-input"
-                            placeholder="Start typing..."
-                            onChange={(e) => this.handleUserInputChange(e)}
-                            autoFocus
-                            cols="50"
-                            rows="4"
-                        ></textarea>
-                    </div>
+                    
                 </div>}
                 {this.state.finished && <button onClick={()=>{window.location.reload(false)}}>New Test</button>}
 			</div>

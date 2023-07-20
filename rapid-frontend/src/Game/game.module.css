@@ -1,1 +1,25 @@
 .gameWrapper {}
+
+.testWrapper {
+	display: flex;
+	flex-direction: column;
+}
+
+.testInput {
+	width: 30%;
+	height: 2vw;
+	padding: 3px;
+}
+
+.promptContainer {
+	width: 40%;
+	text-align: left;
+	align-self: center;
+
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
