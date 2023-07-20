@@ -1,6 +1,7 @@
 import { v4 as uuidv4 } from 'uuid';
 
-export const ROOM_CAPACITY = 4;
+export const ROOM_CAPACITY = 2;
+export const LOBBY_WAIT_TIME = 30;
 
 export const findMatch = (io, socket, data) => {
     // console.log(data);
@@ -33,5 +34,8 @@ export const findMatch = (io, socket, data) => {
         const newRoomId = `${difficulty}${uuidv4()}`;
         console.log(`Generating new room with ID: ${newRoomId}`);
         socket.emit('receive_match', newRoomId);
+        setTimeout(() => {
+            socket.in(newRoomId).emit('game_start', true);
+        }, 1000 * LOBBY_WAIT_TIME);
     }
 };
