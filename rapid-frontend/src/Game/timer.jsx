@@ -6,17 +6,18 @@ class Timer extends Component{
         this.state = {
             timerOn: false,
             timerStart: 0,
-            timerTime: 1000 * props.countDownSec,
-
+            timerTime: 1000 * props.startTimeFrom,
             timerStartFunc: props.timerStartFunc,
         }
     }
 
 	componentDidMount(){
+		console.log(this.state.timerTime);
 		this.startTimer();
 	}
 
 	startTimer = () => {
+		
 		this.setState({
 			timerOn: true,
 			timerTime: this.state.timerTime,
@@ -31,9 +32,15 @@ class Timer extends Component{
 			}else{
 				clearInterval(this.timer);
 				this.setState({timerOn:false});
+				this.state.timerStartFunc(this.state.timerTime);
 			}
 			
 		}, 1000)
+	}
+	render(){
+		return(
+			<div className="countdown">hello {Math.floor(this.state.timerTime/1000)}</div>
+		)
 	}
 }
 
