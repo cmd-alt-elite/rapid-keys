@@ -1,7 +1,7 @@
-import { v4 as uuidv4 } from 'uuid';
+import short from 'short-uuid';
 
 export const ROOM_CAPACITY = 2;
-export const LOBBY_WAIT_TIME = 30;
+export const LOBBY_WAIT_TIME = 60;
 
 export const findMatch = (io, socket, data) => {
     // console.log(data);
@@ -31,11 +31,11 @@ export const findMatch = (io, socket, data) => {
 
     if (!roomExists) {
         console.log('No available rooms found.')
-        const newRoomId = `${difficulty}${uuidv4()}`;
+        const newRoomId = `${difficulty}_${short.generate()}`;
         console.log(`Generating new room with ID: ${newRoomId}`);
         socket.emit('receive_match', newRoomId);
         setTimeout(() => {
-            console.log('Time up, starting game');
+            console.log('Time up, starting game.');
             socket.in(newRoomId).emit('game_start', 'Time up, start game.');
         }, 1000 * LOBBY_WAIT_TIME);
     }
