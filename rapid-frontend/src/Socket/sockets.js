@@ -5,6 +5,8 @@ import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import './sockets.css'
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
+
 
 const options = [
   'easy', 'medium', 'hard'
@@ -14,6 +16,8 @@ const defaultOption = options[1];
 const socket = io.connect("https://rapid-keys-back.onrender.com/");
 
 function Sockets() {
+  const navigate = useNavigate();
+
   //Room State
   const [room, setRoom] = useState("");
 
@@ -23,16 +27,20 @@ function Sockets() {
   let difficulty = "";
 
   const makeMatch = () => {
+    console.log("matchmaking started...")
     if(username !== ""){
       socket.emit("find_match", difficulty);
     }
+    console.log("matchmaking ended...")
+
   }
 
   useEffect(() => {
     socket.on("receive_match", (room) => {
       console.log("room number alloted is  " + room);
       setRoom(room);
-      this.props.history.push('/games/' + room);
+      console.log("match found!");
+      navigate('/games' + room, { replace: true });
     });
   }, [socket]);
 
