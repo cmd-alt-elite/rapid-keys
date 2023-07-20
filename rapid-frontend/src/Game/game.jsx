@@ -30,11 +30,16 @@ class Game extends Component {
             canStart: false,
 
             status: props.status
+            
         }
     }
 
     componentDidMount(){
         socket.on("game_start", (leBool)=>{
+            //!!!!!! add 5 second timer before game start, after we receive true from this
+            // do this
+            // please
+            // asap
             this.setState({
                 startedOnce: leBool,
                 started: leBool,
