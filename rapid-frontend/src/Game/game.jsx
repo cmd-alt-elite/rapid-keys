@@ -2,6 +2,11 @@ import React, { Component, createRef } from "react";
 import { generate } from "random-words";
 import styles from './game.module.css';
 import Timer from "./timer";
+import { useParams } from "react-router-dom";
+
+function withParams(Component) {
+  return props => <Component {...props} params={useParams()} />;
+}
 
 class Game extends Component {
 	constructor(props) {
@@ -24,7 +29,8 @@ class Game extends Component {
         }}
 
     componentDidMount(){
-        const material =  generate({exactly: 25, join: " "});
+        let { id } = this.props.params;
+        const material =  generate({exactly: 25, join: " ", seed: id});
         console.log(material)
         this.setState({
             testContent: material,
@@ -113,4 +119,4 @@ class Game extends Component {
 	}
 }
  
-export default Game;
+export default withParams(Game);
