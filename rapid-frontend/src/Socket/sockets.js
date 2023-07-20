@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import './sockets.css'
+import { Link } from "react-router-dom";
 
 const options = [
   'easy', 'medium', 'hard'
@@ -23,7 +24,7 @@ function Sockets() {
 
   const makeMatch = () => {
     if(username !== ""){
-      socket.emit("find_match", username, difficulty);
+      socket.emit("find_match", difficulty);
     }
   }
 
@@ -31,6 +32,7 @@ function Sockets() {
     socket.on("receive_match", (room) => {
       console.log("room number alloted is  " + room);
       setRoom(room);
+      this.props.history.push('/games/' + room);
     });
   }, [socket]);
 
