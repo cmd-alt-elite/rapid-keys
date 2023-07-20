@@ -1,6 +1,14 @@
-export const joinRoom = (socket, data) => {
+import { ROOM_CAPACITY } from "./matchmaking.js";
+
+export const joinRoom = (io, socket, data) => {
     console.log(`Joining room ${data.room}`);
     socket.join(data.room);
+    
+    let room = io.sockets.adapter.rooms.get(data.room);
+    if (room.size === ROOM_CAPACITY) {
+        console.log('Room full, starting game.');
+        io.in(data.room).emit('game_start', true);
+    }
 };
 
 export const leaveRoom = (socket, data) => {

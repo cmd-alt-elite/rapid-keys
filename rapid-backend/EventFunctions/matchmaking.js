@@ -1,6 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
 
-const ROOM_CAPACITY = 4;
+export const ROOM_CAPACITY = 4;
 
 export const findMatch = (io, socket, data) => {
     // console.log(data);
@@ -15,7 +15,7 @@ export const findMatch = (io, socket, data) => {
     let roomExists = false;
 
     for (let [room, players] of rooms.entries()) {
-        if (room.length == 20) continue;
+        if (room.length === 20) continue;
         if (room.substring(0, difficulty.length) === difficulty) {   
             console.log(`Room ${room} has ${players.size} players`);
             

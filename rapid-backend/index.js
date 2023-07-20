@@ -26,7 +26,7 @@ const io = new Server(server, {
 io.on('connection', (socket) => {
   console.log(`User connected: ${socket.id}`);
   socket.on('find_match', (data) => findMatch(io, socket, data));
-  socket.on('join_room', (data) => joinRoom(socket, data));
+  socket.on('join_room', (data) => joinRoom(io, socket, data));
   socket.on('leave_room', (data) => leaveRoom(socket, data));
   socket.on('send_progress', (data) => sendProgress(io, data));
 });
