@@ -24,29 +24,35 @@ function Sockets() {
   // Messages States
   const [username, setUsername] = useState("");
   const [roomReceived, setRoomReceived] = useState("");
-  let difficulty = "";
+  const [difficulty, setDifficulty] = useState(options[1]);
+  // let difficulty = "";
 
   const makeMatch = () => {
     console.log("matchmaking started...")
     if(username !== ""){
-      socket.emit("find_match", difficulty, username);
+      socket.emit("find_match", {"difficulty": difficulty, "username": username});
     }
     console.log("matchmaking ended...")
 
+  }
+
+  const handleJoinRoom = ()=>{
+    navigate('/game/' + room, { replace: true });
   }
 
   useEffect(() => {
     socket.on("receive_match", (room) => {
       console.log("room number alloted is  " + room);
       setRoom(room);
+      socket.emit("join_room", {"room": room});
       console.log("match found!");
-      navigate('/game/' + room, { replace: true });
     });
   }, [socket]);
 
   const onSelect = (option) => {
     console.log('You selected ', option.label);
-    difficulty = option;
+    setDifficulty(option.label)
+    console.log(difficulty)
 }
 
 
@@ -62,6 +68,7 @@ function Sockets() {
       <div className="difficulty-dropdown"><Dropdown options={options} value={defaultOption} placeholder="Select an option" onChange={onSelect} /></div>
       
       <button onClick={makeMatch} className="match-button"> Enter Matchmaking!</button>
+      <button onClick={handleJoinRoom}>Join Room</button>
       <h3> Alloted Room :</h3>
       {roomReceived}
     </div>
