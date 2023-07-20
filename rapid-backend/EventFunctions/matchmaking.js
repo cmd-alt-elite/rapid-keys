@@ -29,7 +29,7 @@ export const findMatch = (io, socket, data) => {
 
     if (!roomExists) {
         console.log('No available rooms found.')
-        const newRoomId = difficulty + uuidv4();
+        const newRoomId = `${difficulty}${uuidv4()}`;
         console.log(`Generating new room with ID: ${newRoomId}`);
         socket.emit('receive_match', newRoomId);
     }
