@@ -2,8 +2,8 @@ import express from 'express';
 import http from 'http';
 import cors from 'cors';
 import { Server } from 'socket.io';
-import { joinRoom, leaveRoom } from './EventFunctions/matchmaking';
-import { sendStats } from './EventFunctions/in-game';
+import { joinRoom, leaveRoom } from './EventFunctions/matchmaking.js';
+import { sendStats } from './EventFunctions/in-game.js';
 
 const PORT = process.env.PORT || 8000;
 
@@ -23,9 +23,9 @@ const io = new Server(server, {
 io.on('connection', (socket) => {
     console.log(`User connected: ${socket.id}`);
 
-    socket.on('join_room', joinRoom(socket, data));
-    socket.on('leave_room', leaveRoom(socket, data));
-    socket.on('send_stats', sendStats(io, socket, data));
+    socket.on('join_room', (data) => joinRoom(socket, data));
+    socket.on('leave_room', (data) => leaveRoom(socket, data));
+    socket.on('send_stats', (data) => sendStats(io, socket, data));
 
     socket.on('find_match', (data) => {
         console.log(`Available rooms: ${socket.rooms}`);
