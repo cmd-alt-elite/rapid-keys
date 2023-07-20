@@ -29,7 +29,7 @@ function Sockets() {
   const makeMatch = () => {
     console.log("matchmaking started...")
     if(username !== ""){
-      socket.emit("find_match", difficulty);
+      socket.emit("find_match", difficulty, username);
     }
     console.log("matchmaking ended...")
 
