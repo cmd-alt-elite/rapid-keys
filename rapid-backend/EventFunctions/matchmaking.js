@@ -25,7 +25,7 @@ export const findMatch = (io, socket, data) => {
             
             if (players.size < ROOM_CAPACITY) {
                 console.log(`Room found with available spots: ${room}`)
-                io.in(socket.id).emit('receive_match', room);
+                socket.emit('receive_match', room);
                 roomExists = true;
                 break;
             }
@@ -36,6 +36,6 @@ export const findMatch = (io, socket, data) => {
         console.log('No available rooms found.')
         const newRoomId = "_" + uuidv4();
         console.log(`Generating new room with ID: ${newRoomId}`);
-        io.to(data.userId).emit(newRoomId);
+        socket.emit('receive_match', newRoomId);
     }
 };
