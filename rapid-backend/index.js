@@ -2,8 +2,8 @@ import express from 'express';
 import http from 'http';
 import cors from 'cors';
 import { Server } from 'socket.io';
-import { joinRoom, leaveRoom } from './EventFunctions/matchmaking';
-import { sendStats } from './EventFunctions/in-game';
+import { joinRoom, leaveRoom } from './EventFunctions/matchmaking.js';
+import { sendStats } from './EventFunctions/in-game.js';
 
 const PORT = process.env.PORT || 8000;
 
