@@ -1,4 +1,5 @@
-import React, { Component, createRef, useRef } from "react";
+import React, { Component, createRef } from "react";
+import { generate } from "random-words";
 import styles from './game.module.css';
 import Timer from "./timer";
 
@@ -7,8 +8,7 @@ class Game extends Component {
         super(props);
         this.inputRef = createRef();
         this.state = {
-            prompt: ["The", " ", "quick", "brown", "fox", "jumps", "over", "the", "lazy", "dog"],
-            testContent: "The quick brown fox jumps over the lazy dog",
+            testContent: "The quick brown fox jumps over the lazy dog$",
 
             userInput: "",
             correctChars: 0,
@@ -17,24 +17,25 @@ class Game extends Component {
             started: false,
             finished: false,
 
-            startTimeFrom: 10,
-
             timerKey: 0,
             wpm: 0,
 
             status: props.status
         }}
 
-    timerStartFunc(time) {
+    componentDidMount(){
+        const material =  generate({exactly: 25, join: " "});
         this.setState({
-            startTimeFrom: time,
+            testContent:material+"$",
         });
     }
 
     startGame(){
+        // console.log(this.state.startTimeFrom);
         this.setState({
             startedOnce: true,
-            started: true
+            started: true,
+            finished: false,
         })
     }
 
@@ -42,17 +43,42 @@ class Game extends Component {
         this.setState({
             userInput: e.target.value
         })
+        if(e.target.value.slice(-1) === "$"){
+            this.setState({
+                started: false,
+                finished: true,
+                userInput: ""
+            })
+            this.inputRef.current.value = ""; 
+            
+            
+            // get incorrect and correct count
+            // calculate wpm
+            // navigate 
+        }
+        
     }
 
 	render(){
 		return(
 			<div className={styles.gameWrapper}>
                 <h3>Rapid Keys</h3>
-                {!this.state.startedOnce ? <button onClick={this.startGame.bind(this)}>Start Typing</button> : <button>Stop Test</button>}
+                {!this.state.startedOnce ? <button onClick={this.startGame.bind(this)}>Start Typing</button>: null}
                 <div>
-                    {this.state.started ? <Timer startTimeFrom={this.state.startTimeFrom} timerStartFunc={this.timerStartFunc.bind(this)} started={this.started}></Timer> : null}
+                    {this.state.startedOnce ? <Timer finished={this.state.finished} startTimeFrom={this.state.startTimeFrom} started={this.started}></Timer> : null}
                 </div>
-                {this.state.started && <div>
+                {this.state.startedOnce && 
+                <div className={styles.testWrapper}>
+                    <div>
+                        <input
+                            ref={this.inputRef}
+                            className={styles.testInput}
+                            placeholder="Start typing..."
+                            onChange={(e) => this.handleUserInputChange(e)}
+                            autoFocus
+                            rows="1"
+                        ></input>
+                    </div>
                     <div className={styles.promptContainer}>
                         {this.state.testContent.split('').map((ch, i) => {
                             let color;
@@ -68,18 +94,9 @@ class Game extends Component {
                             );
                         })}
                     </div>
-                    <div>
-                        <textarea
-                            ref={this.inputRef}
-                            className="test-input"
-                            placeholder="Start typing..."
-                            onChange={(e) => this.handleUserInputChange(e)}
-                            autoFocus
-                            cols="50"
-                            rows="4"
-                        ></textarea>
-                    </div>
+                    
                 </div>}
+                {this.state.finished && <button onClick={()=>{window.location.reload(false)}}>New Test</button>}
 			</div>
 		)
 	}
