@@ -25,4 +25,7 @@ Pending Features
 
 Tech stack : ReactJS + Node JS + Express + Socket.io
 
+Front-end hosted on : https://moonlit-jalebi-348211.netlify.app/ 
+Back-end hosted on : https://rapid-keys-back.onrender.com/
+
 Team : Sarthak + Kartike + Nishant
