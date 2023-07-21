@@ -111,6 +111,7 @@ export const roomProgressLoop = (io, socket, room) => {
 }
 
 export const sendStats = async (io, socket, data) => {
+    console.log(data);
     socket.wpm = data.wpm;
 
     let sockets = await io.in(data.room).fetchSockets();
