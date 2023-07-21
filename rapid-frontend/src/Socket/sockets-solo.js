@@ -4,6 +4,7 @@ import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import './sockets.css'
 import { useNavigate } from 'react-router-dom';
+import Form from 'react-bootstrap/Form'
 
 
 const options = [
@@ -41,7 +42,8 @@ function SocketsSolo() {
   return (
     <div className="socketWrapper">
       <div>
-        <label htmlFor="">Username </label>
+        {/* <label htmlFor="">Username </label> */}
+        <Form.Control size="lg" type="text" placeholder="Large text" />
         <input
           onChange={(event) => {
             setUsername(event.target.value);

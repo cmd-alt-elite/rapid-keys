@@ -5,6 +5,7 @@ import 'react-dropdown/style.css';
 import './sockets.css'
 import { useNavigate } from 'react-router-dom';
 import { Button } from "react-bootstrap";
+import Form from 'react-bootstrap/Form'
 
 
 const options = [
@@ -18,7 +19,6 @@ export const socket = io.connect("https://rapid-keys-back.onrender.com/");
 
 function Sockets() {
   const navigate = useNavigate();
-
   //Room State
   const [roomvar, setRoom] = useState("");
 
@@ -56,10 +56,18 @@ function Sockets() {
     console.log(difficulty)
 }
 
+const goHome = ()=>{
+  navigate("/");
+}
+
   return (
     <div className="socketWrapper">
+      <div className="head">
+					<h3 onClick={goHome}>rapid keys</h3>
+				</div>
+
       <div>
-        <label htmlFor="">Username </label>
+        <label htmlFor="">Enter a username</label>
         <input
           onChange={(event) => {
             setUsername(event.target.value);
