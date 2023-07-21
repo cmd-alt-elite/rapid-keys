@@ -12,4 +12,8 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 export const database = getFirestore();
-export const roomsCollection = collection(database, 'Rooms');
+
+export const soloCollection = collection(database, 'Solo')
+export const multiplayerCollection = collection(database, 'Multiplayer');
+
+export const LEADERBOARD_LIMIT = 5;

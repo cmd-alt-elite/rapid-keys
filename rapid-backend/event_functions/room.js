@@ -11,7 +11,7 @@ const getRoomPlayers = async (io, room) => {
             id: socket.id,
             username: socket.username,
             progress: socket.progress,
-        })
+        });
     });
 
     // console.log(players);

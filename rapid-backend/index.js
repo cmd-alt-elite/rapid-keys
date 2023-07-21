@@ -4,7 +4,8 @@ import cors from 'cors';
 import { Server } from 'socket.io';
 import { findMatch } from './event_functions/matchmaking.js';
 import { joinRoom, leaveRoom, sendProgress } from './event_functions/room.js';
-import roomsRoutes from './routes/rooms.js';
+import soloRoutes from './routes/solo.js';
+import multiplayerRoutes from './routes/multiplayer.js';
 
 const PORT = process.env.PORT || 8000;
 
@@ -14,7 +15,8 @@ app.use(cors());
 
 const server = http.createServer(app);
 
-app.use('/rooms', roomsRoutes);
+app.use('/solo', soloRoutes);
+app.use('/multiplayer', multiplayerRoutes);
 
 const io = new Server(server, {
   cors: {
