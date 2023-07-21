@@ -30,11 +30,16 @@ class Game extends Component {
             canStart: false,
 
             status: props.status
+            
         }
     }
 
     componentDidMount(){
         socket.on("game_start", (leBool)=>{
+            //!!!!!! add 5 second timer before game start, after we receive true from this
+            // do this
+            // please
+            // asap
             this.setState({
                 startedOnce: leBool,
                 started: leBool,
@@ -92,10 +97,6 @@ class Game extends Component {
 			<div className={styles.gameWrapper}>
                 <h3>Rapid Keys</h3>
                 {!this.state.startedOnce ? <div>
-                        <button onClick={this.startGame.bind(this)}>
-                            Start Typing
-                        </button>
-                        <br />
                         The game will start soon.
                         </div>: null
                 }

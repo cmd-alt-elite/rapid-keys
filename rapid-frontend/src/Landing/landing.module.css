@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+body {
+	background-color: #002029;
+}
+
+.headWrap {
+	margin-top: 5vw;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-bottom: 3vw;
+
+}
+
+.heading {
+	border-radius: 10px;
+	background-color: white;
+	width: 30%;
+}
+
+.heading>h3 {
+	font-family: 'Inter', sans-serif;
+	font-size: 2vw;
+}
+
+.modeSelect {
+	margin-top: 100px;
+	display: flex;
+	justify-content: space-around;
+}
+
+.soloBtn,
+.onlineBtn {
+	background-color: #004052;
+	padding: 4vw;
+	padding-top: 5vw;
+	padding-bottom: 5vw;
+	width: 20%;
+	color: white;
+	font-family: 'Inter', sans-serif;
+	font-size: 2vw;
+}
+
+.soloBtn>img,
+.onlineBtn>img {
+	margin-bottom: 1vw;
+	width: 70%;
+}
+
+.soloBtn>img {
+	width: 52%;
+}
+
+
+
+.soloBtn:hover,
+.onlineBtn:hover {
+	cursor: pointer;
+}
