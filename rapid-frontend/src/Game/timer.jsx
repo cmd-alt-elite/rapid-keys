@@ -34,7 +34,6 @@ class Timer extends Component{
 	componentDidUpdate(prevProps, prevState){
 		if(this.props.finished !== prevProps.finished){
 			clearInterval(this.timer);
-			console.log(this.state.id);
 			socket.emit("send_stats", {room: this.state.id, wpm: this.state.currentWPM});
 			this.setState({
 				timerOn: false,
@@ -44,6 +43,7 @@ class Timer extends Component{
 		if(this.state.timerTime !== prevState.timerTime){
 			this.setState({currentWPM: Math.round(12000*this.props.userInput.length/(this.state.timerTime))});
 		}
+		// socket.emit("send_progress", {progress: Math.round(100*this.state.userInput.length/this.state.testContent.length), })
 	}
 
 

@@ -172,14 +172,16 @@ class Game extends Component {
                     )})}
                 </div>}
                 {
-                    this.state.finished && this.state.stats && <div className={styles.leadHead}>Leaderboard</div>
+                    this.state.finished && this.state.stats && <div className={styles.leadHead}>Results</div>
                 }
                 {this.state.finished && this.state.stats &&
                     this.state.stats.map((stat)=>{
-                        return (<div className={styles.leaderboard}>
-                            {stat.username}: {stat.wpm}
-                        </div>)
-                    })
+                        if(stat.wpm !== -1){
+                            return (<div className={styles.leaderboard}>
+                                {stat.username}: {stat.wpm}
+                            </div>)
+                        }else{return null}
+    })
                 }
                 {this.state.finished && <NewGameBtn/>}
 			</div>
