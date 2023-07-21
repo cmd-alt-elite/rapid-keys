@@ -59,10 +59,6 @@ export const startGame = (io, socket, room) => {
     });
     io.in(room).emit('game_start', true);
 
-    setTimeout(() => {
-        endGame(io, socket, room);
-    }, 1000 * GAME_DURATION);
-
     roomProgressLoop(io, socket, room);
 }
 
@@ -79,6 +75,10 @@ export const endGame = (io, socket, room) => {
 
 export const roomProgressLoop = (io, socket, room) => {
     console.log('Now in room progress loop.');
+
+    setTimeout(() => {
+        endGame(io, socket, room);
+    }, 1000 * GAME_DURATION);
     
     const timer = setInterval(async () => {
         
