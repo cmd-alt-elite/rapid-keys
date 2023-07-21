@@ -1,4 +1,14 @@
-.gameWrapper {}
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+.gameWrapper h3 {
+	margin-left: 2vw;
+	background-color: white;
+	width: 20%;
+	padding-top: 1vw;
+	padding-bottom: 1vw;
+	border-radius: 10px;
+	font-family: 'Inter', sans-serif;
+}
 
 .testWrapper {
 	display: flex;
@@ -12,9 +22,14 @@
 }
 
 .promptContainer {
-	width: 40%;
+	width: 50%;
 	text-align: left;
 	align-self: center;
+	color: white;
+	font-size: 2vw;
+	font-family: 'Inter', sans-serif;
+	margin-top: 2vw;
+	margin-bottom: 2vw;
 
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
@@ -22,4 +37,16 @@
 	-moz-user-select: none;
 	-ms-user-select: none;
 	user-select: none;
+}
+
+.inputContainer>input {
+	width: 80%;
+}
+
+.timer {
+	color: white;
+}
+
+.wait {
+	color: white;
 }
