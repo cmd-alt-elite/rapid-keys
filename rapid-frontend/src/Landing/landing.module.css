@@ -22,6 +22,7 @@ body {
 .heading>h3 {
 	font-family: 'Inter', sans-serif;
 	font-size: 2vw;
+	cursor: pointer;
 }
 
 .modeSelect {
@@ -66,7 +67,6 @@ body {
 	width: 60%;
 	margin-left: 1.75vw;
 }
-
 
 
 .soloBtn>img,
