@@ -24,7 +24,7 @@ export const joinRoom = (io, socket, data) => {
     socket.username = data.username;
     socket.progress = 0;
 
-    io.in(data.room).emit('player_joined', {players: getRoomPlayers(io, data.room)});
+    io.in(data.room).emit('player_joined', JSON.stringify(getRoomPlayers(io, data.room)));
     
     let room = io.sockets.adapter.rooms.get(data.room);
     if (room.size === ROOM_CAPACITY) {
