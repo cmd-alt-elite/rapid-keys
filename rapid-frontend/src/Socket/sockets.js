@@ -25,9 +25,7 @@ function Sockets() {
 
   // Messages States
   const [username, setUsername] = useState("");
-  const [roomReceived, setRoomReceived] = useState("");
   const [difficulty, setDifficulty] = useState(options[1]);
-  // let difficulty = "";
 
   const makeMatch = () => {
     console.log("matchmaking started...")
@@ -75,8 +73,10 @@ function Sockets() {
       <div className="difficulty-dropdown"><Dropdown options={options} value={defaultOption} placeholder="Select an option" onChange={onSelect} /></div>
       
       <button onClick={makeMatch} className="match-button"> Enter Matchmaking!</button>
-      <h3> Alloted Room :</h3>
-      {room}
+      {room && <div>
+        <h3> Alloted Room :</h3>
+        {room}
+      </div>}
       <br />
       {room && <button onClick={handleJoinRoom}>Join Room</button>}
     </div>
