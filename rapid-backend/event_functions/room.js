@@ -1,5 +1,10 @@
 import { roomStatus, getRoomStatus } from "../utils/room-data.js";
 import { ROOM_CAPACITY, GAME_DURATION, PROGRESS_UPDATE_TIMEOUT, LOBBY_WAIT_TIME } from '../utils/game-settings.js';
+import { multiplayerController } from "../controllers/multiplayer.js";
+import { GameRecord } from "../models/game-record.js";
+import { addDoc } from "firebase/firestore/lite";
+import { firestoreAdapter } from "../models/game-record.js";
+import { multiplayerCollection } from "../utils/firebase-config.js";
 
 const getRoomPlayers = async (io, room) => {
     let players = [];
@@ -26,6 +31,7 @@ export const joinRoom = (io, socket, data) => {
     socket.progress = 0;
 
     getRoomPlayers(io, data.room).then((playerList) => {
+        console.log('Sending players joined.');
         // console.log(JSON.stringify(playerList));
         io.in(data.room).emit('player_joined', JSON.stringify(playerList));
     });
@@ -62,13 +68,38 @@ export const startGame = (io, socket, room) => {
     roomProgressLoop(io, socket, room);
 }
 
-export const endGame = (io, socket, room) => {
+export const endGame = async (io, socket, room) => {
     console.log(`Ending game in room ${room}.`);
     roomStatus.set(room, {
         start: true,        
         end: true,
     });    
     io.in(room).emit('game_end', true);
+
+    let sockets = await io.in(data.room).fetchSockets();
+
+    for (let socket of sockets) {
+        if (!socket.wpm) {
+            socket.wpm = -1;
+        }
+    }
+
+    console.log(`Sending leaderboard to room ${data.room}.`);
+
+    let leaderboard = [];
+
+    sockets.forEach((socket) => {
+        leaderboard.push({
+            id: socket.id,
+            username: socket.username,
+            wpm: socket.wpm
+        });
+    });
+
+    console.log(`Leaderboard: ${JSON.stringify(leaderboard)}`);
+    io.in(data.room).emit('receive_stats', JSON.stringify(leaderboard));
+
+    await saveAllRecords(leaderboard);
 }
 
 export const roomProgressLoop = (io, socket, room) => {
@@ -111,35 +142,24 @@ export const roomProgressLoop = (io, socket, room) => {
 }
 
 export const sendStats = async (io, socket, data) => {
-    console.log(data);
     socket.wpm = data.wpm;
-
-    let sockets = await io.in(data.room).fetchSockets();
-
-    let sendLeaderboard = true;
-
-    for (let socket of sockets) {
-        if (!socket.wpm) {
-            sendLeaderboard = false;
-            break;
-        }
-    }
-
-    if (sendLeaderboard) {
-        console.log(`Sending leaderboard to room ${data.room}.`);
-
-        let leaderboard = [];
-
-        sockets.forEach((socket) => {
-            leaderboard.push({
-                id: socket.id,
-                username: socket.username,
-                wpm: socket.wpm
-            });
-        });
-
-        leaderboard.sort((player1, player2) => {player2.wpm - player1.wpm});
-        console.log(`Leaderboard: ${JSON.stringify(leaderboard)}`);
-        io.in(data.room).emit('receive_stats', JSON.stringify(leaderboard));
-    }
 };
+
+export const saveAllRecords = async (records) => {
+
+    console.log('Saving all records to firebase.');
+
+    records.forEach(async (data) => {        
+        try {
+            let record = new GameRecord(data.username, data.wpm);
+
+            await addDoc(multiplayerCollection, firestoreAdapter.toFirestore(record)).catch((error) => 
+                console.log(`Error in creating multiplayer: ${error}`)
+            );
+        } catch (error) {
+            console.log(`Error in parsing request: ${error}`)
+        }
+    });
+
+    console.log('All records saved.');
+}
