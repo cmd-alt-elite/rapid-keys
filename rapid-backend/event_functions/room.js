@@ -67,13 +67,13 @@ export const startGame = (io, socket, room) => {
 }
 
 export const endGame = (io, socket, room) => {
+    console.log(`Ending game in room ${room}.`);
     roomStatus.set(room, {
         start: true,        
         end: true,
     });
     getRoomPlayers(io, room).then((playerList) => {    
-        io.in(room).emit('game_end', JSON.stringify(playerList));
-        console.log('Ending game.');
+        io.in(room).emit('game_end', true);
     });
 }
 
@@ -86,6 +86,21 @@ export const roomProgressLoop = (io, socket, room) => {
         console.log(JSON.stringify(playerList));
         io.in(room).emit('receive_progress', JSON.stringify(playerList));
         
+        let finished = true;
+        
+        for (var player of playerList) {
+            if (parseInt(player.progress) !== 100) {
+                finished = false;
+                break;
+            }
+        }
+
+        if (finished) {
+            endGame(io, socket, room);
+            clearInterval(timer);
+            return;
+        }
+
         let gameStatus = getRoomStatus(room);
         console.log(gameStatus);
 
@@ -95,24 +110,4 @@ export const roomProgressLoop = (io, socket, room) => {
         }
 
     }, 1000 * PROGRESS_UPDATE_TIMEOUT);
-}
-
-export const sendFinished = async (io, socket, data) => {
-    
-    let finished = true;
-    const room = data.room;
-    if (data.finished) socket.finished = data.finished;
-
-    let sockets = await io.in(room).fetchSockets();
-
-    for (let socket in sockets) {
-        if (!socket.finished) {
-            finished = false;
-            break;
-        }
-    }
-
-    if (finished) {
-        endGame(io, socket, room);
-    }
 }
