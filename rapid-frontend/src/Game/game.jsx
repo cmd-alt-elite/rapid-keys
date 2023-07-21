@@ -92,16 +92,10 @@ class Game extends Component {
 	render(){
 		return(
 			<div className={styles.gameWrapper}>
-<<<<<<< Updated upstream
                 <h3>rapid keys</h3>
                 {!this.state.startedOnce ? <div className={styles.wait}>
-                        The game will start soon...
-=======
-                <h3>Rapid Keys</h3>
-                {!this.state.startedOnce ? <div>
-                        The game will start in 30 seconds or as soon as 4 players have joined the room.
->>>>>>> Stashed changes
-                        </div>: null
+                    The game will start in 30 seconds or as soon as 4 players have joined the room.
+                    </div>: null
                 }
                 {
                     !this.state.startedOnce && this.state.readyToPlay && <div className={styles.isReady}>The game will start in {this.state.timeTillBegin} seconds.</div>
