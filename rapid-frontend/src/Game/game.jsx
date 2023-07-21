@@ -112,7 +112,7 @@ class Game extends Component {
                                 // ch === this.state.userInput[i] ? this.setState({correctChars: this.state.correctChars+1}) : this.setState({errorCnt: this.state.errorCnt+1});
                                 color =
                                     ch === this.state.userInput[i]
-                                        ? '#34d61e'
+                                        ? '#5a5c69'
                                         : '#d91818';
                             }
                             return (<span style={{ backgroundColor: color }} key={i}>
