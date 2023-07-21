@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
 
-.username-progress{
+.username-progress {
 	margin-right: 10px;
 	padding-right: 10px;
 }
@@ -89,3 +89,10 @@
 	color: white;
 }
 
+.leadHead {
+	color: white;
+}
+
+.leaderboard {
+	color: white;
+}
