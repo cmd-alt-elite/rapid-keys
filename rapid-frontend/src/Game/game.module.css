@@ -47,7 +47,7 @@
 .inputContainer>input {
 	width: 70%;
 	height: 4vw;
-	font-size: 16px;
+	font-size: 20px;
 }
 
 .timer {
@@ -60,4 +60,17 @@
 
 .isReady {
 	color: white;
+}
+
+.progressBarWrap {
+	margin-top: 15px;
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	/* width: 50%; */
+}
+
+.sthYaar {
+	width: 60%;
 }

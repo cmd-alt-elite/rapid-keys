@@ -79,7 +79,7 @@ class Game extends Component {
         socket.emit("send_progress", {progress: Math.round(100*this.state.userInput.length/this.state.testContent.length)})
         socket.on("receive_progress", (progress)=>{
             var progressParsed = JSON.parse(progress);
-            this.setState({progress: progressParsed})
+            this.setState({progress: progressParsed});
         })
     }
         
@@ -149,13 +149,18 @@ class Game extends Component {
                         ></input>
                     </div>
                     {this.state.started && this.state.progress && this.state.progress.map((progress)=>{return(
-                        <ProgressBar now={progress.progress}/>
+                        <div className={styles.progressBarWrap}>
+                            {progress.username}  
+                            <div className={styles.sthYaar}>
+                                <ProgressBar now={progress.progress} className={styles.progress}/>
+                            </div>
+                        </div>
                     )})}
-                <div>
+                {/* <div>
                     {this.state.players && this.state.players.map((name) => {
                         return (<p key={name.username}>{name.username}</p>)
                     })}
-                </div>
+                </div> */}
                 </div>}
                 {this.state.finished && <NewGameBtn/>}
 			</div>
