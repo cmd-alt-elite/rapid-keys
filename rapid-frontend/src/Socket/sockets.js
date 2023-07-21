@@ -51,10 +51,7 @@ function Sockets() {
       socket.emit("join_room", {"room": room});
       navigate('/game/' + room, { replace: true });
     });
-    socket.on("player_joined", (name)=>{
-      console.log("username is " + name.username);
-      // nameArr.push(name);
-    })
+   
   }, [socket]);
 
   const onSelect = (option) => {

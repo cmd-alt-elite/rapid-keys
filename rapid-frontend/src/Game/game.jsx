@@ -30,6 +30,7 @@ class Game extends Component {
 
             timerKey: 0,
             canStart: false,
+            players : {},
 
             status: props.status
             
@@ -54,6 +55,13 @@ class Game extends Component {
                 this.setState({timeTillBegin: updatedTime})
                 if(updatedTime <= 0){clearInterval(leInterval)}
             },1000)
+
+            socket.on("player_joined", (name)=>{
+                this.setState({players : name});
+                console.log("username is " + name);
+                
+                // nameArr.push(name);
+              })
         })
 
        
@@ -134,9 +142,10 @@ class Game extends Component {
                     </div>
 
                     <div>
-
-      {/* {players.map((players) => (
-        <p key={players.username}>{players.username}</p>
+                        
+{/* 
+      {this.state.players&&this.state.players.map((name) => (
+        <p key={name.username}>{name.username}</p>
       ))} */}
     </div>
                 </div>}
