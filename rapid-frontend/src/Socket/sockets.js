@@ -33,6 +33,8 @@ function Sockets() {
       socket.emit("find_match", {"difficulty": difficulty, "username": username});
     }
     console.log("matchmaking ended...")
+    
+    
 
   }
 
@@ -46,6 +48,8 @@ function Sockets() {
       console.log("room number alloted is  " + room);
       setRoom(room);
       console.log("match found!");
+      socket.emit("join_room", {"room": room, "username": username});
+      navigate('/game/' + room, { replace: true });
     });
     socket.on("player_joined", (name)=>{
       console.log(name);
