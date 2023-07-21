@@ -63,15 +63,18 @@ function Sockets() {
 }
 
   return (
-    <div className="App">
-      <input
-        placeholder="username..."
-        onChange={(event) => {
-          setUsername(event.target.value);
-        }}
-        className="username-field"
-      />
-      <div className="difficulty-dropdown"><Dropdown options={options} value={defaultOption} placeholder="Select an option" onChange={onSelect} /></div>
+    <div className="socketWrapper">
+      <div>
+        <label htmlFor="">Username </label>
+        <input
+          // placeholder="username..."
+          onChange={(event) => {
+            setUsername(event.target.value);
+          }}
+          className="username-field"
+        />
+      </div>
+      <div className="flexDiff"><label htmlFor="">Difficulty</label><div className="difficulty-dropdown"><Dropdown options={options} value={defaultOption} placeholder="Select an option" onChange={onSelect} /></div></div>
       
       <button onClick={makeMatch} className="match-button"> Enter Matchmaking!</button>
       {roomvar && <div>
