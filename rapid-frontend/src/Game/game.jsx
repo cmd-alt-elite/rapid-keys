@@ -56,9 +56,7 @@ class Game extends Component {
             },1000)
         })
 
-        socket.on("player_joined", (players)=>{
-            console.log("players in this room are : " + players);
-        })
+       
 
         let { id } = this.props.params;
         const material =  generate({exactly: 25, join: " ", seed: id});
@@ -137,6 +135,13 @@ class Game extends Component {
                             autoFocus
                         ></input>
                     </div>
+
+                    <div>
+
+      {/* {players.map((players) => (
+        <p key={players.username}>{players.username}</p>
+      ))} */}
+    </div>
                 </div>}
                 {this.state.finished && <NewGameBtn/>}
 			</div>

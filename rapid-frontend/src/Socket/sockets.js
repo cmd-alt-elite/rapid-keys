@@ -27,6 +27,10 @@ function Sockets() {
   const [username, setUsername] = useState("");
   const [difficulty, setDifficulty] = useState(options[1]);
 
+  // Player State
+  const [players, setPlayers] = useState("");
+
+
   const makeMatch = () => {
     console.log("matchmaking started...");
     if(username !== ""){
@@ -39,6 +43,7 @@ function Sockets() {
   //   socket.emit("join_room", {"room": room, "username": username});
   //   navigate('/game/' + room, { replace: true });
   // }
+  useState()
 
   useEffect(() => {
     console.log("its happening")
@@ -51,9 +56,8 @@ function Sockets() {
     });
     socket.on("player_joined", (name)=>{
       console.log("username is " + name.username);
-      // nameArr.push(name);
+      setPlayers(name);
     })
-    // console.log(nameArr);
   }, [socket]);
 
   const onSelect = (option) => {
