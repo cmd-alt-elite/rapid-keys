@@ -27,7 +27,7 @@ export const joinRoom = (io, socket, data) => {
     socket.progress = 0;
 
     getRoomPlayers(io, data.room).then((playerList) => {
-        console.log(JSON.stringify(playerList));
+        // console.log(JSON.stringify(playerList));
         io.in(data.room).emit('player_joined', JSON.stringify(playerList));
     });
     
@@ -71,12 +71,12 @@ export const startGame = (io, socket, room) => {
 }
 
 export const endGame = (io, socket, room) => {
-    console.log('Ending game.');
     roomStatus.set(room, {
         start: true,        
         end: true,
     });
     io.in(room).emit('game_end', true);
+    console.log('Ending game.');
 }
 
 
@@ -90,7 +90,7 @@ export const roomProgressLoop = (io, socket, room) => {
         io.in(room).emit('receive_progress', JSON.stringify(playerList));
         
         let gameStatus = getRoomStatus(room);
-        console.log(gameStatus);
+        // console.log(gameStatus);
 
         if (gameStatus && gameStatus.end === true) {
             clearInterval(timer);
