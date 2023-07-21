@@ -14,19 +14,19 @@ A realtime typing webapp.
 - show room data and winner
 - send room data to database
 - global leaderboard
+- display all other users in your room
 
 
 ### Pending Features
 - choose difficulty
 - choose game time
-- display all other users in your room
 - map user data forever via username
 
 
 
 Tech stack : ReactJS + Node JS + Express + Socket.io
 
-Front-end hosted on : https://moonlit-jalebi-348211.netlify.app/ 
+Front-end hosted on : https://rapid-keys.netlify.app/ 
 Back-end hosted on : https://rapid-keys-back.onrender.com/
 
 Team : Sarthak + Kartike + Nishant
