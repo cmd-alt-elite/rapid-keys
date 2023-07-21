@@ -122,7 +122,12 @@ class Solo extends Component {
                             autoFocus
                         ></input>
                     </div>
-                    {this.state.startedOnce && <ProgressBar now={100*this.state.userInput.length/this.state.testContent.length}/>}
+                    {this.state.startedOnce && 
+                    <div className={styles.progressWrap}>
+                        <div className={styles.progress}>
+                            <ProgressBar now={100*this.state.userInput.length/this.state.testContent.length}/>
+                        </div>
+                    </div>}
                 </div>}
                 {this.state.startedOnce && <NewGameBtn/>}
 			</div>
