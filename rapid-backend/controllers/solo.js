@@ -16,11 +16,13 @@ export const soloController = {
     
     getLeaderboard: async (req, res) => {
 
+        console.log('Called leaderboard API.');
+
         let lbEntries = [];
 
-        const lbQuery = query(soloCollection, orderBy("duration"), limit(LEADERBOARD_LIMIT));
+        // const lbQuery = query(soloCollection, orderBy("duration"), limit(LEADERBOARD_LIMIT));
 
-        await getDocs(lbQuery).then((querySnapshot) => {
+        await getDocs(soloCollection).then((querySnapshot) => {
             querySnapshot.forEach((document) => {
                 lbEntries.add(document.data());
             });
