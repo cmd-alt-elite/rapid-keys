@@ -1,3 +1,4 @@
+import { getRoomStatus, startGame } from "../room-data.js";
 import { ROOM_CAPACITY } from "./matchmaking.js";
 
 const getRoomPlayers = async (io, room) => {
@@ -25,13 +26,17 @@ export const joinRoom = (io, socket, data) => {
     socket.progress = 0;
 
     getRoomPlayers(io, data.room).then((playerList) => {
+        console.log(JSON.stringify(playerList));
         io.in(data.room).emit('player_joined', JSON.stringify(playerList));
     });
     
     let room = io.sockets.adapter.rooms.get(data.room);
     if (room.size === ROOM_CAPACITY) {
         console.log('Room full, starting game.');
-        io.in(data.room).emit('game_start', true);
+        let currRoomStatus = getRoomStatus(data.room);
+        if (currRoomStatus && currRoomStatus.start === false) {
+            startGame(io, socket, data.room);
+        }
     }
 };
 

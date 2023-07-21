@@ -34,7 +34,10 @@ export const findMatch = (io, socket, data) => {
         socket.emit('receive_match', newRoomId);
         setTimeout(() => {
             console.log('Time up, starting game.');
-            io.in(newRoomId).emit('game_start', true);
+            let currRoomStatus = getRoomStatus(newRoomId);
+            if (currRoomStatus && currRoomStatus.start === false) {
+                startGame(io, socket, newRoomId);
+            }
         }, 1000 * LOBBY_WAIT_TIME);
     }
 };
