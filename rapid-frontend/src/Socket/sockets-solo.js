@@ -25,26 +25,12 @@ function SocketsSolo() {
   const [username, setUsername] = useState("");
   const [difficulty, setDifficulty] = useState(options[1]);
 
-  // Player State
-  const [players, setPlayers] = useState("");
-
-
   const makeMatch = () => {
     if(username !== ""){
       setRoom(username);
       navigate('/solo/' + username, { replace: true });
     }
-    console.log("matchmaking ended...")
   }
-
-  useEffect(() => {
-    // socket.on("receive_match", (room) => {
-    //   setRoom(room);
-    //   console.log("match found!");
-    //   socket.emit("join_room", {"room": room});
-    // });
-   
-  }, [socket]);
 
   const onSelect = (option) => {
     console.log('You selected ', option.label);
@@ -66,10 +52,6 @@ function SocketsSolo() {
       <div className="flexDiff"><label htmlFor="">Difficulty</label><div className="difficulty-dropdown"><Dropdown options={options} value={defaultOption} placeholder="Select an option" onChange={onSelect} /></div></div>
       
       <button onClick={makeMatch} className="match-button"> Start Game!</button>
-      {roomvar && <div>
-        <h3>Alloted Room :</h3>
-        {roomvar}
-      </div>}
       <br />
     </div>
   );
