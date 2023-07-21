@@ -17,11 +17,12 @@ class Game extends Component {
             testContent: "The quick brown fox jumps over the lazy dog",
 
             userInput: "",
-            correctChars: 0,
             errorCnt: 0,
             startedOnce: false,
             started: false,
             finished: false,
+            readyToPlay: false,
+            timeTillBegin: 5,
 
             currentWPM: 0,
             finalWPM: 0,
@@ -36,13 +37,19 @@ class Game extends Component {
 
     componentDidMount(){
         socket.on("game_start", (leBool)=>{
-            // TODO: add 5 second timer before game start, after we receive true from this
-            this.setState({
+            console.log("this confirms that you are loser");
+            console.log(this.state.timeTillBegin);
+            this.setState({readyToPlay: true});
+            setTimeout(()=>{
+                setInterval(()=>{
+                    this.setState((prevState)=>{return{timeTillBegin: prevState.timeTillBegin-1}})
+                },1000)
+                this.setState({
                 startedOnce: leBool,
                 started: leBool,
                 finished: !leBool,
             })
-            console.log("this confirms that you are loser");
+        }, 5000) 
         })
         let { id } = this.props.params;
         const material =  generate({exactly: 25, join: " ", seed: id});
@@ -53,18 +60,7 @@ class Game extends Component {
         });
     }
 
-    // componentDidUpdate(){
-    //     socket.on("game_start", (leBool)=>{
-    //         this.setState({
-    //             startedOnce: leBool,
-    //             started: leBool,
-    //             finished: !leBool,
-    //         })
-    //     })
-    // }
-
     startGame(){
-        // console.log(this.state.startTimeFrom);
         this.setState({
             startedOnce: true,
             started: true,
@@ -95,6 +91,9 @@ class Game extends Component {
                 {!this.state.startedOnce ? <div className={styles.wait}>
                         The game will start soon...
                         </div>: null
+                }
+                {
+                    !this.state.startedOnce && this.state.readyToPlay && <div className={styles.isReady}>The game will start in {this.state.timeTillBegin} seconds.</div>
                 }
                 <div>
                     {this.state.startedOnce ? <Timer finished={this.state.finished} started={this.started} userInput={this.state.userInput} updateTempWPM={this.updateTempWPM}></Timer> : null}

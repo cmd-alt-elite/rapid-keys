@@ -40,7 +40,7 @@
 }
 
 .inputContainer>input {
-	width: 80%;
+	width: 70%;
 }
 
 .timer {
@@ -48,5 +48,9 @@
 }
 
 .wait {
+	color: white;
+}
+
+.isReady {
 	color: white;
 }

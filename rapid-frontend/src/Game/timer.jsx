@@ -40,27 +40,25 @@ class Timer extends Component{
 
 
 	startTimer = () => {
-		setTimeout(()=>{
+		this.setState({
+			timerOn: true,
+			timerTime: this.state.timerTime,
+			timerStart: this.state.timerTime
+		});
+		this.timer = setInterval(()=>{
+			const updatedTime = this.state.timerTime + 50;
+
 			this.setState({
-				timerOn: true,
-				timerTime: this.state.timerTime,
-				timerStart: this.state.timerTime
+				timerTime: updatedTime
 			});
-			this.timer = setInterval(()=>{
-				const updatedTime = this.state.timerTime + 50;
-	
-				this.setState({
-					timerTime: updatedTime
-				});
-				// else{
-					// console.log("Test Over")
-					// clearInterval(this.timer);
-					// this.setState(this.baseState);
-					// this.state.timerStartFunc(this.state.timerTime);
-				// }
-				
-			}, 50)
-		}, 5000)
+			// else{
+				// console.log("Test Over")
+				// clearInterval(this.timer);
+				// this.setState(this.baseState);
+				// this.state.timerStartFunc(this.state.timerTime);
+			// }
+			
+		}, 50)
 	}
 
 	render(){
