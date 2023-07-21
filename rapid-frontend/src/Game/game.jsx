@@ -2,11 +2,11 @@ import React, { Component, createRef } from "react";
 import { generate } from "random-words";
 import styles from './game.module.css';
 import Timer from "./timer";
-import { useParams } from "react-router-dom";
+import { json, useParams } from "react-router-dom";
 import { socket } from "../Socket/sockets";
 import NewGameBtn from "./newBtn";
 import ProgressBar from 'react-bootstrap/ProgressBar';
-// import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function withParams(Component) {
   return props => <Component {...props} params={useParams()} />;
@@ -27,13 +27,13 @@ class Game extends Component {
             readyToPlay: false,
             timeTillBegin: 5,
             progress: null,
+            players : null,
 
             currentWPM: 0,
             finalWPM: 0,
 
             timerKey: 0,
             canStart: false,
-            players : null,
 
             status: props.status
             
@@ -60,8 +60,8 @@ class Game extends Component {
             },1000)
 
             socket.on("player_joined", (name)=>{
-                this.setState({players : Array(name)});
-                console.log(Array(name));
+                var playersParsed = JSON.parse(name);
+                this.setState({players : playersParsed});
               })
         })
 
@@ -78,10 +78,8 @@ class Game extends Component {
         console.log(100*this.state.userInput.length/this.state.testContent.length);
         socket.emit("send_progress", {progress: Math.round(100*this.state.userInput.length/this.state.testContent.length)})
         socket.on("receive_progress", (progress)=>{
-            var sth = JSON.parse(progress);
-            this.setState({progress: sth})
-            console.log("below this is progress nishant is giving me");
-            console.log(sth);
+            var progressParsed = JSON.parse(progress);
+            this.setState({progress: progressParsed})
         })
     }
         
@@ -130,7 +128,6 @@ class Game extends Component {
                         {this.state.testContent.split('').map((ch, i) => {
                             let color;
                             if (i < this.state.userInput.length) {
-                                
                                 color =
                                     ch === this.state.userInput[i]
                                         ? '#5a5c69'
@@ -151,12 +148,10 @@ class Game extends Component {
                             autoFocus
                         ></input>
                     </div>
-                    Hello
-                    {/* 100*this.state.userInput.length/this.state.testContent.length */}
-                    {/* {this.state.userInput.length && <ProgressBar now={Math.round(100*this.state.userInput.length/this.state.testContent.length)}/>} */}
+                    {this.state.userInput.length && <ProgressBar now={Math.round(100*this.state.userInput.length/this.state.testContent.length)}/>}
                 <div>
-                    {this.state.players && this.state.players.map((name, key) => {
-                        return (<p key={name.username}>{name}</p>)
+                    {this.state.players && this.state.players.map((name) => {
+                        return (<p key={name.username}>{name.username}</p>)
                     })}
                 </div>
                 </div>}
