@@ -1,4 +1,4 @@
-import { roomProgressLoop } from "./event_functions/room";
+import { roomProgressLoop } from "./event_functions/room.js";
 
 export var roomStatus = new Map();
 
