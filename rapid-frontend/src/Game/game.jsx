@@ -14,6 +14,7 @@ function withParams(Component) {
 
 // FIXME: keep progress under 100
 // TODO: progress bar in solo
+// TODO: quotes for difficulty?
 
 class Game extends Component {
 	constructor(props) {
@@ -118,7 +119,7 @@ class Game extends Component {
                     !this.state.startedOnce && this.state.readyToPlay && <div className={styles.isReady}>The game will start in <strong>{this.state.timeTillBegin}</strong> seconds.</div>
                 }
                 {
-                    !this.state.startedOnce && this.state.readyToPlay && <div>Players in Lobby</div>
+                    !this.state.startedOnce && this.state.readyToPlay && <div className={styles.playersHead}>Players in Lobby</div>
                 }
                 {
                     !this.state.startedOnce && this.state.readyToPlay && this.state.players &&
