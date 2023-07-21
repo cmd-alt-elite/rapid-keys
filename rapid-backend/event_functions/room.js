@@ -23,7 +23,6 @@ export const joinRoom = (io, socket, data) => {
     console.log(`Joining room ${data.room}`);
     socket.join(data.room);
 
-    socket.username = data.username;
     socket.progress = 0;
 
     getRoomPlayers(io, data.room).then((playerList) => {
@@ -54,9 +53,6 @@ export const sendProgress = (io, socket, data) => {
 
 
 export const startGame = (io, socket, room) => {
-
-    console.log(`Starting game now.`);
-
     roomStatus.set(room, {
         start: true,
         end: false,
@@ -75,10 +71,11 @@ export const endGame = (io, socket, room) => {
         start: true,        
         end: true,
     });
-    io.in(room).emit('game_end', true);
-    console.log('Ending game.');
+    getRoomPlayers(io, room).then((playerList) => {    
+        io.in(room).emit('game_end', JSON.stringify(playerList));
+        console.log('Ending game.');
+    });
 }
-
 
 export const roomProgressLoop = (io, socket, room) => {
     console.log('Now in room progress loop.');
@@ -90,7 +87,7 @@ export const roomProgressLoop = (io, socket, room) => {
         io.in(room).emit('receive_progress', JSON.stringify(playerList));
         
         let gameStatus = getRoomStatus(room);
-        // console.log(gameStatus);
+        console.log(gameStatus);
 
         if (gameStatus && gameStatus.end === true) {
             clearInterval(timer);
@@ -98,4 +95,24 @@ export const roomProgressLoop = (io, socket, room) => {
         }
 
     }, 1000 * PROGRESS_UPDATE_TIMEOUT);
+}
+
+export const sendFinished = async (io, socket, data) => {
+    
+    let finished = true;
+    const room = data.room;
+    if (data.finished) socket.finished = data.finished;
+
+    let sockets = await io.in(room).fetchSockets();
+
+    for (let socket in sockets) {
+        if (!socket.finished) {
+            finished = false;
+            break;
+        }
+    }
+
+    if (finished) {
+        endGame(io, socket, room);
+    }
 }

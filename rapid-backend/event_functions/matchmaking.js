@@ -8,6 +8,7 @@ export const findMatch = (io, socket, data) => {
     // console.log(data);
     
     const difficulty = data.difficulty.toString();
+    socket.username = data.username;
 
     let rooms = io.sockets.adapter.rooms;
     // console.log(rooms);
