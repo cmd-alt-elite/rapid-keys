@@ -102,7 +102,7 @@ export const roomProgressLoop = (io, socket, room) => {
         }
 
         let gameStatus = getRoomStatus(room);
-        console.log(gameStatus);
+        // console.log(gameStatus);
 
         if (gameStatus && gameStatus.end === true) {
             clearInterval(timer);
@@ -142,6 +142,8 @@ export const sendStats = async (io, socket, data) => {
                 wpm: socket.wpm
             });
         });
+
+        leaderboard.sort((player1, player2) => {player2.wpm - player1.wpm});
 
         socket.in(data.room).emit('receive_stats', JSON.stringify(leaderboard));
     }
