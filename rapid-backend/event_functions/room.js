@@ -1,5 +1,6 @@
 import { roomStatus, getRoomStatus } from "../utils/room-data.js";
-import { ROOM_CAPACITY, GAME_DURATION, PROGRESS_UPDATE_TIMEOUT, LOBBY_WAIT_TIME } from '../utils/game-settings.js';;
+import { ROOM_CAPACITY, GAME_DURATION, PROGRESS_UPDATE_TIMEOUT, LOBBY_WAIT_TIME } from '../utils/game-settings.js';
+import { startGame } from "./game.js";
 
 const getRoomPlayers = async (io, room) => {
     let players = [];
