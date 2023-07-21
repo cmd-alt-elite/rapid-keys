@@ -114,7 +114,7 @@ class Game extends Component {
 			<div className={styles.gameWrapper}>
                 <h3>rapid keys</h3>
                 {!this.state.startedOnce ? <div className={styles.wait}>
-                    The game will start in 30 seconds or as soon as 4 players have joined the room.
+                    The game will start in 30 seconds or as soon as 3 players have joined the room.
                     </div>: null
                 }
                 {
