@@ -36,10 +36,7 @@ class Game extends Component {
 
     componentDidMount(){
         socket.on("game_start", (leBool)=>{
-            //!!!!!! add 5 second timer before game start, after we receive true from this
-            // do this
-            // please
-            // asap
+            // TODO: add 5 second timer before game start, after we receive true from this
             this.setState({
                 startedOnce: leBool,
                 started: leBool,
@@ -56,16 +53,15 @@ class Game extends Component {
         });
     }
 
-    componentDidUpdate(){
-        socket.on("game_start", (leBool)=>{
-            this.setState({
-                startedOnce: leBool,
-                started: leBool,
-                finished: !leBool,
-            })
-            console.log("this confirms that you are loser");
-        })
-    }
+    // componentDidUpdate(){
+    //     socket.on("game_start", (leBool)=>{
+    //         this.setState({
+    //             startedOnce: leBool,
+    //             started: leBool,
+    //             finished: !leBool,
+    //         })
+    //     })
+    // }
 
     startGame(){
         // console.log(this.state.startTimeFrom);

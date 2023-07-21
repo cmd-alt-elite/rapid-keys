@@ -49,9 +49,9 @@ function Sockets() {
     });
     socket.on("player_joined", (name)=>{
       console.log(name);
-      nameArr.push(name);
+      // nameArr.push(name);
     })
-    console.log(nameArr);
+    // console.log(nameArr);
   }, [socket]);
 
   const onSelect = (option) => {
@@ -74,7 +74,7 @@ function Sockets() {
       
       <button onClick={makeMatch} className="match-button"> Enter Matchmaking!</button>
       {room && <div>
-        <h3> Alloted Room :</h3>
+        <h3>Alloted Room :</h3>
         {room}
       </div>}
       <br />
