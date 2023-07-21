@@ -1,5 +1,6 @@
 import { addDoc, doc, getDocs, query, setDoc, where, orderBy, limit, QuerySnapshot } from "firebase/firestore/lite";
 import { LEADERBOARD_LIMIT, multiplayerCollection } from "../utils/firebase-config.js";
+import { GameRecord } from "../models/game-record.js";
 
 export const multiplayerController = {
     saveRecordWithoutRequest: async (data) => {
