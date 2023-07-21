@@ -46,11 +46,11 @@ function Sockets() {
       console.log("room number alloted is  " + room);
       setRoom(room);
       console.log("match found!");
-      socket.emit("join_room", {"room": room, "username": username});
+      socket.emit("join_room", {"room": room});
       navigate('/game/' + room, { replace: true });
     });
     socket.on("player_joined", (name)=>{
-      console.log("username is " + name.username);
+      console.log("username is " + name);
       // nameArr.push(name);
     })
     // console.log(nameArr);
