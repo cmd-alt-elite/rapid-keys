@@ -15,7 +15,7 @@ export var nameArr = [];
 
 export const socket = io.connect("https://rapid-keys-back.onrender.com/");
 
-function Sockets() {
+function SocketsSolo() {
   const navigate = useNavigate();
 
   //Room State
@@ -30,22 +30,19 @@ function Sockets() {
 
 
   const makeMatch = () => {
-    console.log("matchmaking started...");
     if(username !== ""){
-      socket.emit("find_match", {"difficulty": difficulty, "username": username});
+      setRoom(username);
+      navigate('/solo/' + username, { replace: true });
     }
     console.log("matchmaking ended...")
   }
 
   useEffect(() => {
-    console.log("its happening")
-    socket.on("receive_match", (room) => {
-      console.log("room number alloted is  " + room);
-      setRoom(room);
-      console.log("match found!");
-      socket.emit("join_room", {"room": room});
-      navigate('/game/' + room, { replace: true });
-    });
+    // socket.on("receive_match", (room) => {
+    //   setRoom(room);
+    //   console.log("match found!");
+    //   socket.emit("join_room", {"room": room});
+    // });
    
   }, [socket]);
 
@@ -68,7 +65,7 @@ function Sockets() {
       </div>
       <div className="flexDiff"><label htmlFor="">Difficulty</label><div className="difficulty-dropdown"><Dropdown options={options} value={defaultOption} placeholder="Select an option" onChange={onSelect} /></div></div>
       
-      <button onClick={makeMatch} className="match-button"> Enter Matchmaking!</button>
+      <button onClick={makeMatch} className="match-button"> Start Game!</button>
       {roomvar && <div>
         <h3>Alloted Room :</h3>
         {roomvar}
@@ -78,4 +75,4 @@ function Sockets() {
   );
 }
 
-export default Sockets;
+export default SocketsSolo;

@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
 body {
-	background-color: #002029;
+	background-color: #002029 !important;
 }
 
 .headWrap {
