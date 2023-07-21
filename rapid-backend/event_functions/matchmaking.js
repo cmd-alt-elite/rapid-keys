@@ -1,6 +1,6 @@
 import short from 'short-uuid';
 import { getRoomStatus } from "../utils/room-data.js";
-import { startGame } from './room.js';
+import { startGame } from './game.js';
 
 import { ROOM_CAPACITY, GAME_DURATION, PROGRESS_UPDATE_TIMEOUT, LOBBY_WAIT_TIME } from '../utils/game-settings.js';
 
