@@ -38,7 +38,7 @@ export const joinRoom = (io, socket, data) => {
         console.log('Room full, starting game.');
         let currRoomStatus = getRoomStatus(data.room);
         console.log(currRoomStatus);
-        if (currRoomStatus && currRoomStatus.start === false) {
+        if (!currRoomStatus || currRoomStatus.start === false) {
             startGame(io, socket, data.room);
         }
     }

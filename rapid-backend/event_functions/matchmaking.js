@@ -38,7 +38,7 @@ export const findMatch = (io, socket, data) => {
             let currRoomStatus = getRoomStatus(newRoomId);
             console.log(currRoomStatus);
             
-            if (currRoomStatus && currRoomStatus.start === false) {
+            if (!currRoomStatus || currRoomStatus.start === false) {
                 startGame(io, socket, newRoomId);
             }
         }, 1000 * LOBBY_WAIT_TIME);
