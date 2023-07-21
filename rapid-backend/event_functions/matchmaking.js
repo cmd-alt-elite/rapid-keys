@@ -20,7 +20,7 @@ export const findMatch = (io, socket, data) => {
         let roomStatus = getRoomStatus(room);
         if (roomStatus && roomStatus.start === true) continue;
         if (room.substring(0, difficulty.length) === difficulty) {   
-            console.log(`Room ${room} has ${players.size} players`);
+            // console.log(`Room ${room} has ${players.size} players`);
             
             if (players.size < ROOM_CAPACITY) {
                 console.log(`Room found with available spots: ${room}`)
