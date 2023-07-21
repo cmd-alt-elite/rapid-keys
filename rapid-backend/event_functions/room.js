@@ -68,13 +68,38 @@ export const startGame = (io, socket, room) => {
     roomProgressLoop(io, socket, room);
 }
 
-export const endGame = (io, socket, room) => {
+export const endGame = async (io, socket, room) => {
     console.log(`Ending game in room ${room}.`);
     roomStatus.set(room, {
         start: true,        
         end: true,
     });    
     io.in(room).emit('game_end', true);
+
+    let sockets = await io.in(data.room).fetchSockets();
+
+    for (let socket of sockets) {
+        if (!socket.wpm) {
+            socket.wpm = -1;
+        }
+    }
+
+    console.log(`Sending leaderboard to room ${data.room}.`);
+
+    let leaderboard = [];
+
+    sockets.forEach((socket) => {
+        leaderboard.push({
+            id: socket.id,
+            username: socket.username,
+            wpm: socket.wpm
+        });
+    });
+
+    console.log(`Leaderboard: ${JSON.stringify(leaderboard)}`);
+    io.in(data.room).emit('receive_stats', JSON.stringify(leaderboard));
+
+    await saveAllRecords(leaderboard);
 }
 
 export const roomProgressLoop = (io, socket, room) => {
@@ -117,39 +142,7 @@ export const roomProgressLoop = (io, socket, room) => {
 }
 
 export const sendStats = async (io, socket, data) => {
-    console.log(data);
     socket.wpm = data.wpm;
-
-    let sockets = await io.in(data.room).fetchSockets();
-
-    let sendLeaderboard = true;
-
-    for (let socket of sockets) {
-        if (!socket.wpm) {
-            sendLeaderboard = false;
-            break;
-        }
-    }
-
-    if (sendLeaderboard) {
-        console.log(`Sending leaderboard to room ${data.room}.`);
-
-        let leaderboard = [];
-
-        sockets.forEach((socket) => {
-            leaderboard.push({
-                id: socket.id,
-                username: socket.username,
-                wpm: socket.wpm
-            });
-        });
-
-        leaderboard.sort((player1, player2) => {player2.wpm - player1.wpm});
-        console.log(`Leaderboard: ${JSON.stringify(leaderboard)}`);
-        io.in(data.room).emit('receive_stats', JSON.stringify(leaderboard));
-
-        await saveAllRecords(leaderboard);
-    }
 };
 
 export const saveAllRecords = async (records) => {
