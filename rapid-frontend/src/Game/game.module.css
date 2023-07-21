@@ -21,6 +21,7 @@
 	border-radius: 10px;
 	font-family: 'Inter', sans-serif;
 }
+
 .h3 {
 	font-family: 'Inter', sans-serif;
 	font-size: 2vw;
@@ -47,6 +48,7 @@
 	font-family: 'Inter', sans-serif;
 	margin-top: 2vw;
 	margin-bottom: 2vw;
+	white-space: pre-wrap;
 
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
@@ -80,7 +82,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	
+
 }
 
 .sthYaar {

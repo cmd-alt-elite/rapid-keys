@@ -7,17 +7,15 @@ import { socket } from "../Socket/sockets";
 import NewGameBtn from "./newBtn";
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useNavigate } from "react-router-dom";
 
 function withParams(Component) {
     
   return props => <Component {...props} params={useParams()} />;
 }
 
-// FIXME: keep progress under 100
 // TODO: quotes for difficulty?
+// TODO: show accuracy
 // TODO: switch to time based system instead of completion based?
-// FIXME: ek ne stop kar diya
 // TODO: choose #players
 
 class Game extends Component {
@@ -25,9 +23,10 @@ class Game extends Component {
         super(props);
         this.inputRef = createRef();
         this.state = {
-            testContent: "The quick brown fox jumps over the lazy dog",
+            testContent: "",
             userInput: "",
             errorCnt: 0,
+            correctCnt: 0,
 
             startedOnce: false,
             started: false,
@@ -66,15 +65,13 @@ class Game extends Component {
 
         let { id } = this.props.params;
         const material =  generate({exactly: 25, join: " ", seed: id});
-        console.log(material)
         this.setState({
             testContent: material,
         });
     }
 
     componentDidUpdate(){
-        console.log(100*this.state.userInput.length/this.state.testContent.length);
-        socket.emit("send_progress", {progress: Math.round(100*this.state.userInput.length/this.state.testContent.length)})
+        socket.emit("send_progress", {progress: Math.min(Math.round(100*(this.state.userInput.length+this.state.errorCnt)/(this.state.testContent.length+this.state.errorCnt)), 100)})
         socket.on("receive_progress", (progress)=>{
             var progressParsed = JSON.parse(progress);
             this.setState({progress: progressParsed});
@@ -97,16 +94,23 @@ class Game extends Component {
         this.setState({
             userInput: e.target.value
         })
+
+        if(e.target.value.slice(-1) !== this.state.testContent[e.target.value.length-1]){
+            var updateErrCnt = this.state.errorCnt;
+            this.setState({
+                errorCnt: updateErrCnt+1
+            })
+        }
+
         if(e.target.value === this.state.testContent){
             this.inputRef.current.disabled = true;
             this.setState({
                 started: false,
                 finished: true,
+                progress: 100,
             })
         }
     }
-
-
 
 	render(){
 		return(
@@ -181,7 +185,7 @@ class Game extends Component {
                                 {stat.username}: {stat.wpm}
                             </div>)
                         }else{return null}
-    })
+                    })
                 }
                 {this.state.finished && <NewGameBtn/>}
 			</div>
