@@ -2,7 +2,7 @@ import React, { Component, createRef } from "react";
 import { generate } from "random-words";
 import styles from './game.module.css';
 import Timer from "./timer";
-import { json, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { socket } from "../Socket/sockets";
 import NewGameBtn from "./newBtn";
 import ProgressBar from 'react-bootstrap/ProgressBar';
@@ -11,6 +11,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function withParams(Component) {
   return props => <Component {...props} params={useParams()} />;
 }
+
+// FIXME: keep progress under 100
+// TODO: progress bar in solo
 
 class Game extends Component {
 	constructor(props) {
@@ -42,8 +45,6 @@ class Game extends Component {
 
     componentDidMount(){
         socket.on("game_start", (leBool)=>{
-            console.log("this confirms that you are loser");
-            console.log(this.state.timeTillBegin);
             this.setState({readyToPlay: true});
             setTimeout(()=>{
                 this.setState({
@@ -54,7 +55,6 @@ class Game extends Component {
         }, 5000) 
             var leInterval = setInterval(()=>{
                 const updatedTime = this.state.timeTillBegin - 1;
-                console.log(updatedTime);
                 this.setState({timeTillBegin: updatedTime})
                 if(updatedTime <= 0){clearInterval(leInterval)}
             },1000)
@@ -68,7 +68,6 @@ class Game extends Component {
         let { id } = this.props.params;
         const material =  generate({exactly: 25, join: " ", seed: id});
         console.log(material)
-        console.log(id)
         this.setState({
             testContent: material,
         });
@@ -98,12 +97,11 @@ class Game extends Component {
         })
         if(e.target.value === this.state.testContent){
             
-            this.inputRef.current.value = "";
+            this.inputRef.current.disabled = true;
             
             this.setState({
                 started: false,
                 finished: true,
-                userInput: ""
             })
         }
     }
@@ -118,6 +116,17 @@ class Game extends Component {
                 }
                 {
                     !this.state.startedOnce && this.state.readyToPlay && <div className={styles.isReady}>The game will start in <strong>{this.state.timeTillBegin}</strong> seconds.</div>
+                }
+                {
+                    !this.state.startedOnce && this.state.readyToPlay && <div>Players in Lobby</div>
+                }
+                {
+                    !this.state.startedOnce && this.state.readyToPlay && this.state.players &&
+                    this.state.players.map((name) => {
+                        return (<div className={styles.playersWrap}> 
+                            <p key={name.username} className={styles.playersInLobby}>{name.username}</p>
+                        </div>)
+                    })
                 }
                 <div>
                     {this.state.startedOnce ? <Timer finished={this.state.finished} started={this.started} userInput={this.state.userInput} updateTempWPM={this.updateTempWPM}></Timer> : null}
@@ -148,7 +157,7 @@ class Game extends Component {
                             autoFocus
                         ></input>
                     </div>
-                    {this.state.started && this.state.progress && this.state.progress.map((progress)=>{return(
+                    {this.state.startedOnce && this.state.progress && this.state.progress.map((progress)=>{return(
                         <div className={styles.progressBarWrap}>
                             {progress.username}  
                             <div className={styles.sthYaar}>
@@ -156,11 +165,6 @@ class Game extends Component {
                             </div>
                         </div>
                     )})}
-                {/* <div>
-                    {this.state.players && this.state.players.map((name) => {
-                        return (<p key={name.username}>{name.username}</p>)
-                    })}
-                </div> */}
                 </div>}
                 {this.state.finished && <NewGameBtn/>}
 			</div>
