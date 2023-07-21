@@ -7,8 +7,10 @@ import { socket } from "../Socket/sockets";
 import NewGameBtn from "./newBtn";
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { useNavigate } from "react-router-dom";
 
 function withParams(Component) {
+    
   return props => <Component {...props} params={useParams()} />;
 }
 
@@ -41,6 +43,7 @@ class Game extends Component {
     }
 
     componentDidMount(){
+        
         socket.on("game_start", (leBool)=>{
             this.setState({readyToPlay: true});
             setTimeout(()=>{
@@ -103,8 +106,11 @@ class Game extends Component {
         }
     }
 
+
+
 	render(){
 		return(
+            
 			<div className={styles.gameWrapper}>
                 <h3>rapid keys</h3>
                 {!this.state.startedOnce ? <div className={styles.wait}>
