@@ -20,18 +20,18 @@ export const soloController = {
 
         let lbEntries = [];
 
-        // const lbQuery = query(soloCollection, orderBy("duration"), limit(LEADERBOARD_LIMIT));
+        const lbQuery = query(soloCollection, orderBy("duration"), limit(LEADERBOARD_LIMIT));
 
-        await getDocs(soloCollection).then((querySnapshot) => {
+        await getDocs(lbQuery).then((querySnapshot) => {
             querySnapshot.forEach((document) => {
-                lbEntries.add(document.data());
+                lbEntries.push(document.data());
             });
 
             console.log(lbEntries);
 
             res.status(200).json({leaderboard: lbEntries});
         }).catch((error) => {
-            res.status(400).json({error: error});
+            res.status(400).json({error: `Error in getting leaderboard: ${error}`});
         });
     }
 }

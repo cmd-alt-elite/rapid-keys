@@ -110,10 +110,6 @@ export const roomProgressLoop = (io, socket, room) => {
     }, 1000 * PROGRESS_UPDATE_TIMEOUT);
 }
 
-export const getLeaderboard = (io, socket, data) => {
-
-}
-
 export const sendStats = async (io, socket, data) => {
     socket.wpm = data.wpm;
 
