@@ -1,3 +1,5 @@
+import { roomProgressLoop } from "./event_functions/room";
+
 export var roomStatus = new Map();
 
 export const startGame = (io, socket, room) => {
@@ -6,6 +8,8 @@ export const startGame = (io, socket, room) => {
         end: false,
     });
     io.in(room).emit('game_start', true);
+
+    roomProgressLoop(io, socket, room);
 }
 
 export const endGame = (io, socket, room) => {

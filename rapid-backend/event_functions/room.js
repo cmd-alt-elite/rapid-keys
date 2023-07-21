@@ -1,6 +1,8 @@
 import { getRoomStatus, startGame } from "../room-data.js";
 import { ROOM_CAPACITY } from "./matchmaking.js";
 
+const PROGRESS_UPDATE_TIMEOUT = 2;
+
 const getRoomPlayers = async (io, room) => {
     let players = [];
 
@@ -19,6 +21,7 @@ const getRoomPlayers = async (io, room) => {
 }
 
 export const joinRoom = (io, socket, data) => {
+    console.log(data);
     console.log(`Joining room ${data.room}`);
     socket.join(data.room);
 
@@ -48,9 +51,16 @@ export const leaveRoom = (io, socket, data) => {
 
 export const sendProgress = (io, socket, data) => {
     socket.progress = data.progress;
-    io.in(data.room).emit('receive_progress', {
-        id: socket.id,
-        username: socket.username,
-        progress: socket.progress
-    });
 };
+
+export const roomProgressLoop = (io, socket, room) => {
+    let gameStatus = getRoomStatus(room);
+    while (gameStatus.start === true && gameStatus.end !== true) {
+        setTimeout(async () => {
+            let playerList = await getRoomPlayers(io, room);
+            console.log(JSON.stringify(playerList));
+            io.in(room).emit('receive_progress', JSON.stringify(playerList));
+            gameStatus = getRoomStatus(room);
+        }, 1000 * PROGRESS_UPDATE_TIMEOUT);
+    }
+}
