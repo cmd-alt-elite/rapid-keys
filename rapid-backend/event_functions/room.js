@@ -67,10 +67,8 @@ export const endGame = (io, socket, room) => {
     roomStatus.set(room, {
         start: true,        
         end: true,
-    });
-    getRoomPlayers(io, room).then((playerList) => {    
-        io.in(room).emit('game_end', true);
-    });
+    });    
+    io.in(room).emit('game_end', true);
 }
 
 export const roomProgressLoop = (io, socket, room) => {
