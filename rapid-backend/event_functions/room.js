@@ -1,5 +1,6 @@
 import { roomStatus, getRoomStatus } from "../utils/room-data.js";
 import { ROOM_CAPACITY, GAME_DURATION, PROGRESS_UPDATE_TIMEOUT, LOBBY_WAIT_TIME } from '../utils/game-settings.js';
+import { multiplayerController } from "../controllers/multiplayer.js";
 
 const getRoomPlayers = async (io, room) => {
     let players = [];
@@ -141,5 +142,28 @@ export const sendStats = async (io, socket, data) => {
         leaderboard.sort((player1, player2) => {player2.wpm - player1.wpm});
         console.log(`Leaderboard: ${JSON.stringify(leaderboard)}`);
         io.in(data.room).emit('receive_stats', JSON.stringify(leaderboard));
+
+        await saveAllRecords(leaderboard);
     }
 };
+
+export const saveAllRecords = async (records) => {
+
+    console.log('Saving all records to firebase.');
+
+    records.forEach(async (data) => {        
+        try {
+            let record = new GameRecord(data.username, data.wpm);
+
+            await addDoc(multiplayerCollection, firestoreAdapter.toFirestore(record)).then(() =>
+                res.status(200).json({ message: `Multiplayer saved.`})
+            ).catch((error) => 
+                res.status(400).json({ error: `Error in creating multiplayer: ${error}` })
+            );
+        } catch (error) {
+            res.status(400).json({error: `Error in parsing request: ${error}`});
+        }
+    });
+
+    console.log('All records saved.');
+}
