@@ -58,7 +58,7 @@ class Solo extends Component {
         
 
         let { id } = this.props.params;
-        const material =  generate({exactly: 25, join: " ", seed: id});
+        const material =  generate({exactly: 25, join: " "});
         console.log(material)
         console.log(id)
         this.setState({
