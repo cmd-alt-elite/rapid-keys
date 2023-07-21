@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
 .gameWrapper h3 {
@@ -8,6 +9,10 @@
 	padding-bottom: 1vw;
 	border-radius: 10px;
 	font-family: 'Inter', sans-serif;
+=======
+.gameWrapper {
+	color: white;
+>>>>>>> Stashed changes
 }
 
 .testWrapper {

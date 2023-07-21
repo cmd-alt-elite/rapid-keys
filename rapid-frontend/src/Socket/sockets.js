@@ -28,7 +28,7 @@ function Sockets() {
   const [difficulty, setDifficulty] = useState(options[1]);
 
   const makeMatch = () => {
-    console.log("matchmaking started...")
+    console.log("matchmaking started...");
     if(username !== ""){
       socket.emit("find_match", {"difficulty": difficulty, "username": username});
     }
@@ -50,7 +50,7 @@ function Sockets() {
       navigate('/game/' + room, { replace: true });
     });
     socket.on("player_joined", (name)=>{
-      console.log(name);
+      console.log("username is " + name.username);
       // nameArr.push(name);
     })
     // console.log(nameArr);

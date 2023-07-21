@@ -51,6 +51,11 @@ class Game extends Component {
             })
         }, 5000) 
         })
+
+        socket.on("player_joined", (players)=>{
+            console.log("players in this room are : " + players);
+        })
+
         let { id } = this.props.params;
         const material =  generate({exactly: 25, join: " ", seed: id});
         console.log(material)
@@ -87,9 +92,15 @@ class Game extends Component {
 	render(){
 		return(
 			<div className={styles.gameWrapper}>
+<<<<<<< Updated upstream
                 <h3>rapid keys</h3>
                 {!this.state.startedOnce ? <div className={styles.wait}>
                         The game will start soon...
+=======
+                <h3>Rapid Keys</h3>
+                {!this.state.startedOnce ? <div>
+                        The game will start in 30 seconds or as soon as 4 players have joined the room.
+>>>>>>> Stashed changes
                         </div>: null
                 }
                 {
