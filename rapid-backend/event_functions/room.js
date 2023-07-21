@@ -31,6 +31,7 @@ export const joinRoom = (io, socket, data) => {
     socket.progress = 0;
 
     getRoomPlayers(io, data.room).then((playerList) => {
+        console.log('Sending players joined.');
         // console.log(JSON.stringify(playerList));
         io.in(data.room).emit('player_joined', JSON.stringify(playerList));
     });
