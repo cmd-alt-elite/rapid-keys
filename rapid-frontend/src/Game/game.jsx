@@ -172,7 +172,7 @@ class Game extends Component {
                     )})}
                 </div>}
                 {
-                    this.state.finished && this.state.stats && <div className={styles.leadHead}>Leaderboard</div>
+                    this.state.finished && this.state.stats && <div className={styles.leadHead}>Results</div>
                 }
                 {this.state.finished && this.state.stats &&
                     this.state.stats.map((stat)=>{
