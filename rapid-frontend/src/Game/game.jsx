@@ -16,6 +16,9 @@ function withParams(Component) {
 // TODO: progress bar in solo
 // TODO: quotes for difficulty?
 
+
+// TODO : switch to time based system instead of compeltion based?
+
 class Game extends Component {
 	constructor(props) {
         super(props);

@@ -42,6 +42,33 @@ body {
 	font-size: 2vw;
 }
 
+.leaderboardBtn{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	background-color: #004052;
+	/* padding: 4vw; */
+	padding-top: 2vw;
+	padding-bottom: 2vw;
+	width: 10%;
+	color: white;
+	font-family: 'Inter', sans-serif;
+	font-size: 1vw;
+
+}
+
+.leaderboardWrapper{
+	display: flex;
+	justify-content: center;
+}
+
+.leaderboardBtn>img{
+	width: 60%;
+	margin-left: 1.75vw;
+}
+
+
+
 .soloBtn>img,
 .onlineBtn>img {
 	margin-bottom: 1vw;
@@ -58,3 +85,4 @@ body {
 .onlineBtn:hover {
 	cursor: pointer;
 }
+

@@ -6,6 +6,7 @@ import Solo from './Solo/solo';
 
 import { Routes, Route } from 'react-router-dom';
 import SocketsSolo from './Socket/sockets-solo';
+import Leaderboard from './Leaderboard/leaderboard';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
         <Route path="/game/:id" element={<Game/>}/>
         <Route path = "/solo/" element = {<SocketsSolo/>}/>
         <Route path = "solo/:id" element = {<Solo/>}/>
+        <Route path = "/leaderboard" element = {<Leaderboard/>}/>
       </Routes>
     </div>
   );
