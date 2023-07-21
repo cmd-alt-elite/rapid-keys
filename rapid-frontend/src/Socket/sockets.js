@@ -4,6 +4,7 @@ import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import './sockets.css'
 import { useNavigate } from 'react-router-dom';
+import { Button } from "react-bootstrap";
 
 
 const options = [
@@ -67,8 +68,8 @@ function Sockets() {
         />
       </div>
       <div className="flexDiff"><label htmlFor="">Difficulty</label><div className="difficulty-dropdown"><Dropdown options={options} value={defaultOption} placeholder="Select an option" onChange={onSelect} /></div></div>
-      
-      <button onClick={makeMatch} className="match-button"> Enter Matchmaking!</button>
+      <Button variant="primary" onClick = {makeMatch} className="matchmakingBtn">Start Matchmaking!</Button>
+      {/* <button onClick={makeMatch} className="match-button"> Enter Matchmaking!</button> */}
       {roomvar && <div>
         <h3>Alloted Room :</h3>
         {roomvar}
