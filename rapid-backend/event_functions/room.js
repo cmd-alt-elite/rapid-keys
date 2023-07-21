@@ -13,7 +13,7 @@ const getRoomPlayers = async (io, room) => {
         })
     });
 
-    console.log(players);
+    // console.log(players);
     return players;
 }
 
@@ -24,7 +24,9 @@ export const joinRoom = (io, socket, data) => {
     socket.username = data.username;
     socket.progress = 0;
 
-    io.in(data.room).emit('player_joined', JSON.stringify(getRoomPlayers(io, data.room)));
+    getRoomPlayers(io, data.room).then((playerList) => {
+        io.in(data.room).emit('player_joined', JSON.stringify(playerList));
+    });
     
     let room = io.sockets.adapter.rooms.get(data.room);
     if (room.size === ROOM_CAPACITY) {
