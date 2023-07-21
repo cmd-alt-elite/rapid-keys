@@ -6,6 +6,7 @@ import { useParams } from "react-router-dom";
 import { socket } from "../Socket/sockets";
 import NewGameBtn from "./newBtn";
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function withParams(Component) {
   return props => <Component {...props} params={useParams()} />;
@@ -74,6 +75,11 @@ class Game extends Component {
 
     componentDidUpdate(){
         console.log(100*this.state.userInput.length/this.state.testContent.length);
+        socket.emit("send_progress", {progress: Math.round(100*this.state.userInput.length/this.state.testContent.length)})
+        socket.on("receive_progress", (progress)=>{
+            console.log("below this is progress nishant is giving me");
+            console.log(progress);
+        })
     }
         
 
