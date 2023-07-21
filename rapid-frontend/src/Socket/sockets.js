@@ -28,7 +28,7 @@ function Sockets() {
   const [difficulty, setDifficulty] = useState(options[1]);
 
   const makeMatch = () => {
-    console.log("matchmaking started...")
+    console.log("matchmaking started...");
     if(username !== ""){
       socket.emit("find_match", {"difficulty": difficulty, "username": username});
     }
@@ -50,7 +50,7 @@ function Sockets() {
       navigate('/game/' + room, { replace: true });
     });
     socket.on("player_joined", (name)=>{
-      console.log(name);
+      console.log("username is " + name.username);
       // nameArr.push(name);
     })
     // console.log(nameArr);
@@ -63,15 +63,18 @@ function Sockets() {
 }
 
   return (
-    <div className="App">
-      <input
-        placeholder="username..."
-        onChange={(event) => {
-          setUsername(event.target.value);
-        }}
-        className="username-field"
-      />
-      <div className="difficulty-dropdown"><Dropdown options={options} value={defaultOption} placeholder="Select an option" onChange={onSelect} /></div>
+    <div className="socketWrapper">
+      <div>
+        <label htmlFor="">Username </label>
+        <input
+          // placeholder="username..."
+          onChange={(event) => {
+            setUsername(event.target.value);
+          }}
+          className="username-field"
+        />
+      </div>
+      <div className="flexDiff"><label htmlFor="">Difficulty</label><div className="difficulty-dropdown"><Dropdown options={options} value={defaultOption} placeholder="Select an option" onChange={onSelect} /></div></div>
       
       <button onClick={makeMatch} className="match-button"> Enter Matchmaking!</button>
       {roomvar && <div>
