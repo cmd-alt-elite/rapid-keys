@@ -160,9 +160,11 @@ class Game extends Component {
                     </div>
                     {this.state.startedOnce && this.state.progress && this.state.progress.map((progress)=>{return(
                         <div className={styles.progressBarWrap}>
+                            <div className={styles.username-progress}>
                             {progress.username}  
+                            </div>
                             <div className={styles.sthYaar}>
-                                <ProgressBar now={progress.progress} className={styles.progress}/>
+                                <ProgressBar now={progress.progress} striped animated = "true" className={styles.progress}/>
                             </div>
                         </div>
                     )})}

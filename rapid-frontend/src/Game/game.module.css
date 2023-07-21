@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
+
+.username-progress{
+	margin-right: 10px;
+	padding-right: 10px;
+}
+
+
 .gameWrapper {
 	height: 100vh;
 	background-color: #002029;
@@ -81,3 +88,4 @@
 .playersWrap {
 	color: white;
 }
+
