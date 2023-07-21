@@ -76,6 +76,10 @@ class Game extends Component {
             var progressParsed = JSON.parse(progress);
             this.setState({progress: progressParsed});
         })
+        socket.on("receive_stats", (stats)=>{
+            var statsParsed = JSON.parse(stats);
+            this.setState({stats: statsParsed});
+        })
     }
         
     startGame(){
@@ -91,10 +95,6 @@ class Game extends Component {
             userInput: e.target.value
         })
         if(e.target.value === this.state.testContent){
-            socket.on("receive_stats", (stats)=>{
-                var statsParsed = JSON.parse(stats);
-                this.setState({stats: statsParsed});
-            })
             this.inputRef.current.disabled = true;
             this.setState({
                 started: false,
