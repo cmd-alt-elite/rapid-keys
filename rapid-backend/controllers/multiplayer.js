@@ -10,12 +10,12 @@ export const multiplayerController = {
             let record = new GameRecord(data.username, data.wpm);
 
             await addDoc(multiplayerCollection, firestoreAdapter.toFirestore(record)).then(() =>
-                res.status(200).json({ message: `Multiplayer saved.`})
+                console.log(`Multiplayer saved.`)
             ).catch((error) => 
-                res.status(400).json({ error: `Error in creating multiplayer: ${error}` })
+            console.log(`Error in creating multiplayer: ${error}`)
             );
         } catch (error) {
-            res.status(400).json({error: `Error in parsing request: ${error}`});
+            console.log(`Error in parsing request: ${error}`);
         }
     },
 
