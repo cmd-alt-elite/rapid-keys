@@ -5,6 +5,7 @@ import Timer from "./timer";
 import { useParams } from "react-router-dom";
 import { socket } from "../Socket/sockets";
 import NewGameBtn from "./newBtn";
+import ProgressBar from 'react-bootstrap/ProgressBar';
 
 function withParams(Component) {
   return props => <Component {...props} params={useParams()} />;
@@ -71,6 +72,11 @@ class Game extends Component {
         });
     }
 
+    componentDidUpdate(){
+        console.log(100*this.state.userInput.length/this.state.testContent.length);
+    }
+        
+
     startGame(){
         this.setState({
             startedOnce: true,
@@ -136,13 +142,14 @@ class Game extends Component {
                             autoFocus
                         ></input>
                     </div>
-
-                    <div>
-                        
-      {this.state.players && this.state.players.map((name) => {
-        return (<p key={name.username}>{name}</p>)
-    })}
-    </div>
+                    Hello
+                    {/* 100*this.state.userInput.length/this.state.testContent.length */}
+                    {this.state.userInput.length && <ProgressBar now={60}/>}
+                <div>
+                    {this.state.players && this.state.players.map((name, key) => {
+                        return (<p key={name.username}>{name}</p>)
+                    })}
+                </div>
                 </div>}
                 {this.state.finished && <NewGameBtn/>}
 			</div>
