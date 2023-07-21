@@ -2,7 +2,7 @@
 
 A realtime typing webapp.
 
-###Features
+### Features
 - enter username
 - start matchmaking
 - as soon as match is found, you can join the room
@@ -16,7 +16,7 @@ A realtime typing webapp.
 - global leaderboard
 
 
-###Pending Features
+### Pending Features
 - choose difficulty
 - choose game time
 - display all other users in your room
