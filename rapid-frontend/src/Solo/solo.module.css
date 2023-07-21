@@ -1,0 +1,57 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+.gameWrapper h3 {
+	margin-left: 2vw;
+	background-color: white;
+	width: 20%;
+	padding-top: 1vw;
+	padding-bottom: 1vw;
+	border-radius: 10px;
+	font-family: 'Inter', sans-serif;
+}
+
+.testWrapper {
+	display: flex;
+	flex-direction: column;
+}
+
+.testInput {
+	width: 30%;
+	height: 2vw;
+	padding: 3px;
+}
+
+.promptContainer {
+	width: 50%;
+	text-align: left;
+	align-self: center;
+	color: white;
+	font-size: 2vw;
+	font-family: 'Inter', sans-serif;
+	margin-top: 2vw;
+	margin-bottom: 2vw;
+
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
+
+.inputContainer>input {
+	width: 70%;
+	height: 2vw;
+}
+
+.timer {
+	color: white;
+}
+
+.wait {
+	color: white;
+}
+
+.isReady {
+	color: white;
+}
