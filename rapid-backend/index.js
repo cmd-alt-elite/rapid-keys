@@ -3,7 +3,7 @@ import http from 'http';
 import cors from 'cors';
 import { Server } from 'socket.io';
 import { findMatch } from './event_functions/matchmaking.js';
-import { joinRoom, leaveRoom, sendProgress } from './event_functions/room.js';
+import { joinRoom, leaveRoom, sendProgress, sendStats } from './event_functions/room.js';
 import soloRoutes from './routes/solo.js';
 import multiplayerRoutes from './routes/multiplayer.js';
 
@@ -31,6 +31,7 @@ io.on('connection', (socket) => {
   socket.on('join_room', (data) => joinRoom(io, socket, data));
   socket.on('leave_room', (data) => leaveRoom(io, socket, data));
   socket.on('send_progress', (data) => sendProgress(io, socket, data));
+  socket.on('send_stats', (data) => sendStats(io, socket, data));
 });
 
 server.listen(PORT, () => {

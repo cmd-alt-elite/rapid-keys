@@ -111,3 +111,38 @@ export const roomProgressLoop = (io, socket, room) => {
 
     }, 1000 * PROGRESS_UPDATE_TIMEOUT);
 }
+
+export const getLeaderboard = (io, socket, data) => {
+
+}
+
+export const sendStats = async (io, socket, data) => {
+    socket.wpm = data.wpm;
+
+    let sockets = await io.in(data.room).fetchSockets();
+
+    let sendLeaderboard = true;
+
+    for (let socket of sockets) {
+        if (!socket.wpm) {
+            sendLeaderboard = false;
+            break;
+        }
+    }
+
+    if (sendLeaderboard) {
+        console.log(`Sending leaderboard to room ${data.room}.`);
+
+        let leaderboard = [];
+
+        sockets.forEach((socket) => {
+            leaderboard.push({
+                id: socket.id,
+                username: socket.username,
+                wpm: socket.wpm
+            });
+        });
+
+        socket.in(data.room).emit('receive_stats', JSON.stringify(leaderboard));
+    }
+};
