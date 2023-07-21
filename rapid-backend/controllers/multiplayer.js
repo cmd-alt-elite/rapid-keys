@@ -2,8 +2,9 @@ import { addDoc, doc, getDocs, query, setDoc, where, orderBy, limit, QuerySnapsh
 import { LEADERBOARD_LIMIT, multiplayerCollection } from "../utils/firebase-config.js";
 
 export const multiplayerController = {
-
     saveRecord: async (req, res) => {
+
+        console.log('Called save multiplayer record API.');
 
         let data = req.body;
 
@@ -22,7 +23,7 @@ export const multiplayerController = {
     
     getLeaderboard: async (req, res) => {
 
-        console.log('Called leaderboard API.');
+        console.log('Called global leaderboard API.');
 
         let lbEntries = [];
 
@@ -32,9 +33,6 @@ export const multiplayerController = {
             querySnapshot.forEach((document) => {
                 lbEntries.push(document.data());
             });
-
-            console.log(lbEntries);
-
             res.status(200).json({leaderboard: lbEntries});
         }).catch((error) => {
             res.status(400).json({error: `Error in getting leaderboard: ${error}`});

@@ -6,6 +6,8 @@ export const soloController = {
 
     saveRecord: async (req, res) => {
 
+        console.log('Called save solo record API.');
+
         let data = req.body;
 
         try {
@@ -23,7 +25,7 @@ export const soloController = {
     
     getLeaderboard: async (req, res) => {
 
-        console.log('Called leaderboard API.');
+        console.log('Called solo leaderboard API.');
 
         let lbEntries = [];
 
@@ -33,8 +35,6 @@ export const soloController = {
             querySnapshot.forEach((document) => {
                 lbEntries.push(document.data());
             });
-
-            console.log(lbEntries);
 
             res.status(200).json({leaderboard: lbEntries});
         }).catch((error) => {
