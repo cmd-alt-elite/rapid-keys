@@ -4,6 +4,7 @@ import styles from './game.module.css';
 import Timer from "./timer";
 import { useParams } from "react-router-dom";
 import { socket } from "../Socket/sockets";
+import NewGameBtn from "./newBtn";
 
 function withParams(Component) {
   return props => <Component {...props} params={useParams()} />;
@@ -137,7 +138,7 @@ class Game extends Component {
                         ></input>
                     </div>
                 </div>}
-                {this.state.finished && <button onClick={()=>{window.location.reload(false)}}>New Test</button>}
+                {this.state.finished && <NewGameBtn/>}
 			</div>
 		)
 	}
