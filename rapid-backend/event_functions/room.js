@@ -2,6 +2,9 @@ import { roomStatus, getRoomStatus } from "../utils/room-data.js";
 import { ROOM_CAPACITY, GAME_DURATION, PROGRESS_UPDATE_TIMEOUT, LOBBY_WAIT_TIME } from '../utils/game-settings.js';
 import { multiplayerController } from "../controllers/multiplayer.js";
 import { GameRecord } from "../models/game-record.js";
+import { addDoc } from "firebase/firestore/lite";
+import { firestoreAdapter } from "../models/game-record.js";
+import { multiplayerCollection } from "../utils/firebase-config.js";
 
 const getRoomPlayers = async (io, room) => {
     let players = [];
