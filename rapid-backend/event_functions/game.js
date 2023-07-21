@@ -116,7 +116,6 @@ export const sendStats = async (io, socket, data) => {
     io.in(data.room).emit('receive_stats', JSON.stringify(stats));
 
     console.log('Saving record...');
-    let record = new GameRecord(socket.username, socket.wpm);
-    await multiplayerController.saveRecord(record);
+    await multiplayerController.saveRecordWithoutRequest({username: socket.username, wpm: socket.wpm});
     console.log('Record saved.');
 };

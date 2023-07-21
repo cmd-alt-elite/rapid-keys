@@ -2,6 +2,23 @@ import { addDoc, doc, getDocs, query, setDoc, where, orderBy, limit, QuerySnapsh
 import { LEADERBOARD_LIMIT, multiplayerCollection } from "../utils/firebase-config.js";
 
 export const multiplayerController = {
+    saveRecordWithoutRequest: async (data) => {
+
+        console.log('Called save multiplayer record API.');
+
+        try {
+            let record = new GameRecord(data.username, data.wpm);
+
+            await addDoc(multiplayerCollection, firestoreAdapter.toFirestore(record)).then(() =>
+                res.status(200).json({ message: `Multiplayer saved.`})
+            ).catch((error) => 
+                res.status(400).json({ error: `Error in creating multiplayer: ${error}` })
+            );
+        } catch (error) {
+            res.status(400).json({error: `Error in parsing request: ${error}`});
+        }
+    },
+
     saveRecord: async (req, res) => {
 
         console.log('Called save multiplayer record API.');
