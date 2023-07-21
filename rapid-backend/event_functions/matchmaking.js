@@ -1,8 +1,8 @@
 import short from 'short-uuid';
-import { getRoomStatus, startGame } from "../room-data.js";
+import { getRoomStatus } from "../utils/room-data.js";
+import { startGame } from './room.js';
 
-export const ROOM_CAPACITY = 3;
-export const LOBBY_WAIT_TIME = 30;
+import { ROOM_CAPACITY, GAME_DURATION, PROGRESS_UPDATE_TIMEOUT, LOBBY_WAIT_TIME } from '../utils/game-settings.js';
 
 export const findMatch = (io, socket, data) => {
     // console.log(data);
@@ -16,6 +16,8 @@ export const findMatch = (io, socket, data) => {
 
     for (let [room, players] of rooms.entries()) {
         if (room.length === 20) continue;
+        let roomStatus = getRoomStatus(room);
+        if (roomStatus && roomStatus.start === true) continue;
         if (room.substring(0, difficulty.length) === difficulty) {   
             console.log(`Room ${room} has ${players.size} players`);
             
@@ -36,8 +38,7 @@ export const findMatch = (io, socket, data) => {
         setTimeout(() => {
             console.log('Time up, starting game.');
             let currRoomStatus = getRoomStatus(newRoomId);
-            console.log(currRoomStatus);
-            
+            // console.log(currRoomStatus);
             if (!currRoomStatus || currRoomStatus.start === false) {
                 startGame(io, socket, newRoomId);
             }

@@ -1,5 +1,5 @@
 import { doc, getDocs, query, setDoc, where } from "firebase/firestore/lite";
-import { roomsCollection } from "../firebase-config.js";
+import { roomsCollection } from "../utils/firebase-config.js";
 
 export const roomController = {
 

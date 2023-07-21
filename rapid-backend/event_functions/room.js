@@ -1,7 +1,5 @@
-import { getRoomStatus, startGame } from "../room-data.js";
-import { ROOM_CAPACITY } from "./matchmaking.js";
-
-const PROGRESS_UPDATE_TIMEOUT = 2;
+import { roomStatus, getRoomStatus } from "../utils/room-data.js";
+import { ROOM_CAPACITY, GAME_DURATION, PROGRESS_UPDATE_TIMEOUT, LOBBY_WAIT_TIME } from '../utils/game-settings.js';
 
 const getRoomPlayers = async (io, room) => {
     let players = [];
@@ -37,7 +35,7 @@ export const joinRoom = (io, socket, data) => {
     if (room.size === ROOM_CAPACITY) {
         console.log('Room full, starting game.');
         let currRoomStatus = getRoomStatus(data.room);
-        console.log(currRoomStatus);
+        // console.log(currRoomStatus);
         if (!currRoomStatus || currRoomStatus.start === false) {
             startGame(io, socket, data.room);
         }
@@ -54,14 +52,50 @@ export const sendProgress = (io, socket, data) => {
     socket.progress = data.progress;
 };
 
+
+export const startGame = (io, socket, room) => {
+
+    console.log(`Starting game now.`);
+
+    roomStatus.set(room, {
+        start: true,
+        end: false,
+    });
+    io.in(room).emit('game_start', true);
+
+    setTimeout(() => {
+        endGame(io, socket, room);
+    }, 1000 * GAME_DURATION);
+
+    roomProgressLoop(io, socket, room);
+}
+
+export const endGame = (io, socket, room) => {
+    console.log('Ending game.');
+    roomStatus.set(room, {
+        start: true,        
+        end: true,
+    });
+    io.in(room).emit('game_end', true);
+}
+
+
 export const roomProgressLoop = (io, socket, room) => {
-    let gameStatus = getRoomStatus(room);
-    while (gameStatus.start === true && gameStatus.end !== true) {
-        setTimeout(async () => {
-            let playerList = await getRoomPlayers(io, room);
-            console.log(JSON.stringify(playerList));
-            io.in(room).emit('receive_progress', JSON.stringify(playerList));
-            gameStatus = getRoomStatus(room);
-        }, 1000 * PROGRESS_UPDATE_TIMEOUT);
-    }
+    console.log('Now in room progress loop.');
+    
+    const timer = setInterval(async () => {
+        
+        let playerList = await getRoomPlayers(io, room);
+        console.log(JSON.stringify(playerList));
+        io.in(room).emit('receive_progress', JSON.stringify(playerList));
+        
+        let gameStatus = getRoomStatus(room);
+        console.log(gameStatus);
+
+        if (gameStatus && gameStatus.end === true) {
+            clearInterval(timer);
+            return;
+        }
+
+    }, 1000 * PROGRESS_UPDATE_TIMEOUT);
 }
