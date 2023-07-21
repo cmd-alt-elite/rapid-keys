@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import styles from "./game.module.css";
+import { socket } from '../Socket/sockets';
+import { useParams } from "react-router-dom";
+
+function withParams(Component) {
+	return props => <Component {...props} params={useParams()} />;
+}
 
 class Timer extends Component{
 	constructor(props) {
@@ -12,7 +18,7 @@ class Timer extends Component{
             timerTime: 0,
 			userInput: props.userInput,
 			currentWPM: 0,
-			finalWPM: 0
+			id: this.props.params.id
         }
 		this.baseState = this.state;
     }
@@ -28,6 +34,8 @@ class Timer extends Component{
 	componentDidUpdate(prevProps, prevState){
 		if(this.props.finished !== prevProps.finished){
 			clearInterval(this.timer);
+			console.log(this.state.id);
+			socket.emit("send_stats", {room: this.state.id, wpm: this.state.currentWPM});
 			this.setState({
 				timerOn: false,
 				timerStart: 0,
@@ -65,4 +73,4 @@ class Timer extends Component{
 	}
 }
 
-export default Timer;
+export default withParams(Timer);
