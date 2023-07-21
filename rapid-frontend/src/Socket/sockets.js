@@ -1,10 +1,8 @@
-// import "./App.css";
 import io from "socket.io-client";
 import { useEffect, useState } from "react";
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import './sockets.css'
-import { Link } from "react-router-dom";
 import { useNavigate } from 'react-router-dom';
 
 
@@ -43,7 +41,6 @@ function Sockets() {
   //   socket.emit("join_room", {"room": room, "username": username});
   //   navigate('/game/' + room, { replace: true });
   // }
-  useState()
 
   useEffect(() => {
     console.log("its happening")
@@ -51,12 +48,12 @@ function Sockets() {
       console.log("room number alloted is  " + room);
       setRoom(room);
       console.log("match found!");
-      socket.emit("join_room", {"room": room, "username": username});
+      socket.emit("join_room", {"room": room});
       navigate('/game/' + room, { replace: true });
     });
     socket.on("player_joined", (name)=>{
       console.log("username is " + name.username);
-      setPlayers(name);
+      // nameArr.push(name);
     })
   }, [socket]);
 
@@ -71,7 +68,6 @@ function Sockets() {
       <div>
         <label htmlFor="">Username </label>
         <input
-          // placeholder="username..."
           onChange={(event) => {
             setUsername(event.target.value);
           }}
@@ -86,7 +82,6 @@ function Sockets() {
         {roomvar}
       </div>}
       <br />
-      {/* {room && <button onClick={handleJoinRoom}>Join Room</button>} */}
     </div>
   );
 }

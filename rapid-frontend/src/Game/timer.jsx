@@ -51,13 +51,6 @@ class Timer extends Component{
 			this.setState({
 				timerTime: updatedTime
 			});
-			// else{
-				// console.log("Test Over")
-				// clearInterval(this.timer);
-				// this.setState(this.baseState);
-				// this.state.timerStartFunc(this.state.timerTime);
-			// }
-			
 		}, 50)
 	}
 

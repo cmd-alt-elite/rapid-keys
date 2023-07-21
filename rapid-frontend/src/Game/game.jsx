@@ -111,10 +111,7 @@ class Game extends Component {
                         {this.state.testContent.split('').map((ch, i) => {
                             let color;
                             if (i < this.state.userInput.length) {
-                                // if( ch !== this.state.userInput[i]){
-                                //     var updateErr = this.state.errorCnt;
-                                //     this.setState({errorCnt: updateErr+1})
-                                // }
+                                
                                 color =
                                     ch === this.state.userInput[i]
                                         ? '#5a5c69'
