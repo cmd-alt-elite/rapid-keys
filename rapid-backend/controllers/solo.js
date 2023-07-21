@@ -1,17 +1,24 @@
 import { addDoc, doc, getDocs, query, setDoc, where, orderBy, limit, QuerySnapshot } from "firebase/firestore/lite";
 import { LEADERBOARD_LIMIT, soloCollection } from "../utils/firebase-config.js";
+import { GameRecord, firestoreAdapter } from "../models/game-record.js";
 
 export const soloController = {
 
     saveRecord: async (req, res) => {
 
-        let solo = req.body;
-        
-        await addDoc(soloCollection, solo).then(() =>
-            res.status(200).json({ message: `Solo saved.`})
-        ).catch((error) => 
-            res.status(400).json({ error: `Error in creating solo: ${error}` })
-        );
+        let data = req.body;
+
+        try {
+            let record = new GameRecord(data.username, data.wpm);
+
+            await addDoc(soloCollection, firestoreAdapter.toFirestore(record)).then(() =>
+                res.status(200).json({ message: `Solo saved.`})
+            ).catch((error) => 
+                res.status(400).json({ error: `Error in creating solo: ${error}` })
+            );
+        } catch (error) {
+            res.status(400).json({error: `Error in parsing request: ${error}`});
+        }
     },
     
     getLeaderboard: async (req, res) => {
@@ -20,7 +27,7 @@ export const soloController = {
 
         let lbEntries = [];
 
-        const lbQuery = query(soloCollection, orderBy("duration"), limit(LEADERBOARD_LIMIT));
+        const lbQuery = query(soloCollection, orderBy("wpm", "desc"), limit(LEADERBOARD_LIMIT));
 
         await getDocs(lbQuery).then((querySnapshot) => {
             querySnapshot.forEach((document) => {

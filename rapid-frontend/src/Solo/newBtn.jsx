@@ -1,9 +1,6 @@
-import {useNavigate} from "react-router-dom"
-
 const NewGameBtn = () => {
-	const navigate = useNavigate();
 	const backToMM = () => {
-		navigate("/solo");
+		window.location.reload(false);
 	}
 	return (
 		<div>
