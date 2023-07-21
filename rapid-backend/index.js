@@ -3,7 +3,8 @@ import http from 'http';
 import cors from 'cors';
 import { Server } from 'socket.io';
 import { findMatch } from './event_functions/matchmaking.js';
-import { joinRoom, leaveRoom, sendProgress, sendStats } from './event_functions/room.js';
+import { joinRoom, leaveRoom } from './event_functions/room.js';
+import { sendStats, sendProgress } from './event_functions/game.js';
 import soloRoutes from './routes/solo.js';
 import multiplayerRoutes from './routes/multiplayer.js';
 
