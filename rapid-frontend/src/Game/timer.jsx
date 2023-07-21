@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styles from "./game.module.css";
 
 class Timer extends Component{
 	constructor(props) {
@@ -37,30 +38,34 @@ class Timer extends Component{
 		}
 	}
 
-	startTimer = () => {
-		this.setState({
-			timerOn: true,
-			timerTime: this.state.timerTime,
-			timerStart: this.state.timerTime
-		});
-		this.timer = setInterval(()=>{
-			const updatedTime = this.state.timerTime + 50;
 
+	startTimer = () => {
+		setTimeout(()=>{
 			this.setState({
-				timerTime: updatedTime
+				timerOn: true,
+				timerTime: this.state.timerTime,
+				timerStart: this.state.timerTime
 			});
-			// else{
-				// console.log("Test Over")
-				// clearInterval(this.timer);
-				// this.setState(this.baseState);
-				// this.state.timerStartFunc(this.state.timerTime);
-			// }
-			
-		}, 50)
+			this.timer = setInterval(()=>{
+				const updatedTime = this.state.timerTime + 50;
+	
+				this.setState({
+					timerTime: updatedTime
+				});
+				// else{
+					// console.log("Test Over")
+					// clearInterval(this.timer);
+					// this.setState(this.baseState);
+					// this.state.timerStartFunc(this.state.timerTime);
+				// }
+				
+			}, 50)
+		}, 5000)
 	}
+
 	render(){
 		return(
-			<div>
+			<div className={styles.timer}>
 				<div className="countdown">Timer: {Math.floor(this.state.timerTime/1000)}</div>
 				<br />
 				<div>WPM: {this.state.currentWPM}</div>

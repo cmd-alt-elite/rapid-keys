@@ -91,9 +91,9 @@ class Game extends Component {
 	render(){
 		return(
 			<div className={styles.gameWrapper}>
-                <h3>Rapid Keys</h3>
-                {!this.state.startedOnce ? <div>
-                        The game will start soon.
+                <h3>rapid keys</h3>
+                {!this.state.startedOnce ? <div className={styles.wait}>
+                        The game will start soon...
                         </div>: null
                 }
                 <div>
@@ -101,15 +101,6 @@ class Game extends Component {
                 </div>
                 {this.state.startedOnce && 
                 <div className={styles.testWrapper}>
-                    <div>
-                        <input
-                            ref={this.inputRef}
-                            className={styles.testInput}
-                            placeholder="Start typing..."
-                            onChange={(e) => this.handleUserInputChange(e)}
-                            autoFocus
-                        ></input>
-                    </div>
                     <div className={styles.promptContainer}>
                         {this.state.testContent.split('').map((ch, i) => {
                             let color;
@@ -126,7 +117,15 @@ class Game extends Component {
                             );
                         })}
                     </div>
-                    
+                    <div className={styles.inputContainer}>
+                        <input
+                            ref={this.inputRef}
+                            className={styles.testInput}
+                            placeholder="Start typing here..."
+                            onChange={(e) => this.handleUserInputChange(e)}
+                            autoFocus
+                        ></input>
+                    </div>
                 </div>}
                 {this.state.finished && <button onClick={()=>{window.location.reload(false)}}>New Test</button>}
 			</div>
