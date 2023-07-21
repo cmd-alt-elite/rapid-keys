@@ -148,7 +148,9 @@ class Game extends Component {
                             autoFocus
                         ></input>
                     </div>
-                    {this.state.userInput.length && <ProgressBar now={Math.round(100*this.state.userInput.length/this.state.testContent.length)}/>}
+                    {this.state.started && this.state.progress && this.state.progress.map((progress)=>{return(
+                        <ProgressBar now={progress.progress}/>
+                    )})}
                 <div>
                     {this.state.players && this.state.players.map((name) => {
                         return (<p key={name.username}>{name.username}</p>)
