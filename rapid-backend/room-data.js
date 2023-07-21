@@ -9,7 +9,7 @@ export const startGame = (io, socket, room) => {
     });
     io.in(room).emit('game_start', true);
 
-    roomProgressLoop(io, socket, room);
+    // roomProgressLoop(io, socket, room);
 }
 
 export const endGame = (io, socket, room) => {
