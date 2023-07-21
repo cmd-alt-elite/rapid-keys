@@ -4,6 +4,7 @@ import styles from './game.module.css';
 import Timer from "./timer";
 import { useParams } from "react-router-dom";
 import { socket } from "../Socket/sockets";
+import NewGameBtn from "./newBtn";
 
 function withParams(Component) {
   return props => <Component {...props} params={useParams()} />;
@@ -41,15 +42,18 @@ class Game extends Component {
             console.log(this.state.timeTillBegin);
             this.setState({readyToPlay: true});
             setTimeout(()=>{
-                setInterval(()=>{
-                    this.setState((prevState)=>{return{timeTillBegin: prevState.timeTillBegin-1}})
-                },1000)
                 this.setState({
                 startedOnce: leBool,
                 started: leBool,
                 finished: !leBool,
             })
         }, 5000) 
+            var leInterval = setInterval(()=>{
+                const updatedTime = this.state.timeTillBegin - 1;
+                console.log(updatedTime);
+                this.setState({timeTillBegin: updatedTime})
+                if(updatedTime <= 0){clearInterval(leInterval)}
+            },1000)
         })
 
         socket.on("player_joined", (players)=>{
@@ -98,7 +102,7 @@ class Game extends Component {
                     </div>: null
                 }
                 {
-                    !this.state.startedOnce && this.state.readyToPlay && <div className={styles.isReady}>The game will start in {this.state.timeTillBegin} seconds.</div>
+                    !this.state.startedOnce && this.state.readyToPlay && <div className={styles.isReady}>The game will start in <strong>{this.state.timeTillBegin}</strong> seconds.</div>
                 }
                 <div>
                     {this.state.startedOnce ? <Timer finished={this.state.finished} started={this.started} userInput={this.state.userInput} updateTempWPM={this.updateTempWPM}></Timer> : null}
@@ -109,10 +113,13 @@ class Game extends Component {
                         {this.state.testContent.split('').map((ch, i) => {
                             let color;
                             if (i < this.state.userInput.length) {
-                                // ch === this.state.userInput[i] ? this.setState({correctChars: this.state.correctChars+1}) : this.setState({errorCnt: this.state.errorCnt+1});
+                                // if( ch !== this.state.userInput[i]){
+                                //     var updateErr = this.state.errorCnt;
+                                //     this.setState({errorCnt: updateErr+1})
+                                // }
                                 color =
                                     ch === this.state.userInput[i]
-                                        ? '#34d61e'
+                                        ? '#5a5c69'
                                         : '#d91818';
                             }
                             return (<span style={{ backgroundColor: color }} key={i}>
@@ -131,7 +138,7 @@ class Game extends Component {
                         ></input>
                     </div>
                 </div>}
-                {this.state.finished && <button onClick={()=>{window.location.reload(false)}}>New Test</button>}
+                {this.state.finished && <NewGameBtn/>}
 			</div>
 		)
 	}
