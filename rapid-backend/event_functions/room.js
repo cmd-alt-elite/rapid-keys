@@ -33,10 +33,10 @@ export const joinRoom = (io, socket, data) => {
     
     let room = io.sockets.adapter.rooms.get(data.room);
     if (room.size === ROOM_CAPACITY) {
-        console.log('Room full, starting game.');
         let currRoomStatus = getRoomStatus(data.room);
         // console.log(currRoomStatus);
         if (!currRoomStatus || currRoomStatus.start === false) {
+            console.log('Room full, starting game.');
             startGame(io, socket, data.room);
         }
     }

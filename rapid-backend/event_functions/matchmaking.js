@@ -36,10 +36,10 @@ export const findMatch = (io, socket, data) => {
         console.log(`Generating new room with ID: ${newRoomId}`);
         socket.emit('receive_match', newRoomId);
         setTimeout(() => {
-            console.log('Time up, starting game.');
             let currRoomStatus = getRoomStatus(newRoomId);
             // console.log(currRoomStatus);
             if (!currRoomStatus || currRoomStatus.start === false) {
+                console.log('Time up, starting game.');
                 startGame(io, socket, newRoomId);
             }
         }, 1000 * LOBBY_WAIT_TIME);
