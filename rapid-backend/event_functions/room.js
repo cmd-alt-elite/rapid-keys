@@ -144,7 +144,7 @@ export const roomProgressLoop = (io, socket, room) => {
 export const sendStats = async (io, socket, data) => {
     socket.wpm = data.wpm;
 
-    let sockets = await io.in(room).fetchSockets();
+    let sockets = await io.in(data.room).fetchSockets();
 
     for (let socket of sockets) {
         if (!socket.wpm) {
@@ -152,7 +152,7 @@ export const sendStats = async (io, socket, data) => {
         }
     }
 
-    console.log(`Sending stats to room ${room}.`);
+    console.log(`Sending stats to room ${data.room}.`);
 
     let stats = [];
 
@@ -165,7 +165,7 @@ export const sendStats = async (io, socket, data) => {
     });
 
     console.log(`Stats: ${JSON.stringify(stats)}`);
-    io.in(room).emit('receive_stats', JSON.stringify(stats));
+    io.in(data.room).emit('receive_stats', JSON.stringify(stats));
 };
 
 export const saveAllRecords = async (records) => {
