@@ -139,7 +139,7 @@ export const sendStats = async (io, socket, data) => {
         });
 
         leaderboard.sort((player1, player2) => {player2.wpm - player1.wpm});
-
-        socket.in(data.room).emit('receive_stats', JSON.stringify(leaderboard));
+        console.log(`Leaderboard: ${JSON.stringify(leaderboard)}`);
+        io.in(data.room).emit('receive_stats', JSON.stringify(leaderboard));
     }
 };

@@ -13,8 +13,8 @@ function withParams(Component) {
 }
 
 // FIXME: keep progress under 100
-// TODO: progress bar in solo
 // TODO: quotes for difficulty?
+// TODO: leaderboard
 
 
 // TODO : switch to time based system instead of compeltion based?
@@ -25,25 +25,19 @@ class Game extends Component {
         this.inputRef = createRef();
         this.state = {
             testContent: "The quick brown fox jumps over the lazy dog",
-
             userInput: "",
             errorCnt: 0,
+
             startedOnce: false,
             started: false,
             finished: false,
             readyToPlay: false,
+
             timeTillBegin: 5,
+
             progress: null,
             players : null,
-
-            currentWPM: 0,
-            finalWPM: 0,
-
-            timerKey: 0,
-            canStart: false,
-
-            status: props.status
-            
+            stats: null,
         }
     }
 
@@ -86,7 +80,6 @@ class Game extends Component {
         })
     }
         
-
     startGame(){
         this.setState({
             startedOnce: true,
@@ -100,9 +93,11 @@ class Game extends Component {
             userInput: e.target.value
         })
         if(e.target.value === this.state.testContent){
-            
+            socket.on("receive_stats", (stats)=>{
+                var statsParsed = JSON.parse(stats);
+                this.setState({stats: statsParsed});
+            })
             this.inputRef.current.disabled = true;
-            
             this.setState({
                 started: false,
                 finished: true,
@@ -172,6 +167,16 @@ class Game extends Component {
                         </div>
                     )})}
                 </div>}
+                {
+                    this.state.finished && this.state.stats && <div className={styles.leadHead}>Leaderboard</div>
+                }
+                {this.state.finished && this.state.stats &&
+                    this.state.stats.map((stat)=>{
+                        return (<div className={styles.leaderboard}>
+                            {stat.username}: {stat.wpm}
+                        </div>)
+                    })
+                }
                 {this.state.finished && <NewGameBtn/>}
 			</div>
 		)
