@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 import { socket } from "../Socket/sockets";
 import NewGameBtn from "./newBtn";
 import ProgressBar from 'react-bootstrap/ProgressBar';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 function withParams(Component) {
   return props => <Component {...props} params={useParams()} />;
@@ -26,6 +26,7 @@ class Game extends Component {
             finished: false,
             readyToPlay: false,
             timeTillBegin: 5,
+            progress: null,
 
             currentWPM: 0,
             finalWPM: 0,
@@ -77,8 +78,10 @@ class Game extends Component {
         console.log(100*this.state.userInput.length/this.state.testContent.length);
         socket.emit("send_progress", {progress: Math.round(100*this.state.userInput.length/this.state.testContent.length)})
         socket.on("receive_progress", (progress)=>{
+            var sth = JSON.parse(progress);
+            this.setState({progress: sth})
             console.log("below this is progress nishant is giving me");
-            console.log(progress);
+            console.log(sth);
         })
     }
         
@@ -150,7 +153,7 @@ class Game extends Component {
                     </div>
                     Hello
                     {/* 100*this.state.userInput.length/this.state.testContent.length */}
-                    {this.state.userInput.length && <ProgressBar now={60}/>}
+                    {/* {this.state.userInput.length && <ProgressBar now={Math.round(100*this.state.userInput.length/this.state.testContent.length)}/>} */}
                 <div>
                     {this.state.players && this.state.players.map((name, key) => {
                         return (<p key={name.username}>{name}</p>)

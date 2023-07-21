@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
+.gameWrapper {
+	height: 100vh;
+	background-color: #002029;
+}
+
 .gameWrapper h3 {
 	margin-left: 2vw;
 	background-color: white;
@@ -41,7 +46,8 @@
 
 .inputContainer>input {
 	width: 70%;
-	height: 2vw;
+	height: 4vw;
+	font-size: 16px;
 }
 
 .timer {
