@@ -37,6 +37,7 @@ export const findMatch = (io, socket, data) => {
             console.log('Time up, starting game.');
             let currRoomStatus = getRoomStatus(newRoomId);
             console.log(currRoomStatus);
+            
             if (currRoomStatus && currRoomStatus.start === false) {
                 startGame(io, socket, newRoomId);
             }
