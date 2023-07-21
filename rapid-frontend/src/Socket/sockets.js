@@ -37,11 +37,6 @@ function Sockets() {
     console.log("matchmaking ended...")
   }
 
-  // const handleJoinRoom = ()=>{
-  //   socket.emit("join_room", {"room": room, "username": username});
-  //   navigate('/game/' + room, { replace: true });
-  // }
-
   useEffect(() => {
     console.log("its happening")
     socket.on("receive_match", (room) => {

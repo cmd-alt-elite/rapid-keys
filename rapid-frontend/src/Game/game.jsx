@@ -30,7 +30,7 @@ class Game extends Component {
 
             timerKey: 0,
             canStart: false,
-            players : {},
+            players : null,
 
             status: props.status
             
@@ -57,14 +57,10 @@ class Game extends Component {
             },1000)
 
             socket.on("player_joined", (name)=>{
-                this.setState({players : name});
-                console.log("username is " + name);
-                
-                // nameArr.push(name);
+                this.setState({players : Array(name)});
+                console.log(Array(name));
               })
         })
-
-       
 
         let { id } = this.props.params;
         const material =  generate({exactly: 25, join: " ", seed: id});
@@ -143,10 +139,9 @@ class Game extends Component {
 
                     <div>
                         
-{/* 
-      {this.state.players&&this.state.players.map((name) => (
-        <p key={name.username}>{name.username}</p>
-      ))} */}
+      {this.state.players && this.state.players.map((name) => {
+        return (<p key={name.username}>{name}</p>)
+    })}
     </div>
                 </div>}
                 {this.state.finished && <NewGameBtn/>}
