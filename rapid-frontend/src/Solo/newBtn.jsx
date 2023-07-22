@@ -1,12 +1,13 @@
+import { Button } from "react-bootstrap";
 const NewGameBtn = () => {
 	const backToMM = () => {
 		window.location.reload(false);
 	}
 	return (
 		<div>
-			<button onClick={backToMM}>
+			<Button onClick={backToMM}>
 				Play Again
-			</button>
+			</Button>
 		</div>
 	);
 }

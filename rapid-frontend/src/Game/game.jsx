@@ -43,8 +43,12 @@ class Game extends Component {
     }
 
     componentDidMount(){
-        socket.on("game_start", (leBool)=>{
-            this.setState({readyToPlay: true});
+        socket.on("game_start", (text)=>{
+            console.log(text);
+            this.setState({
+                readyToPlay: true,
+                testContent: text
+            });
             setTimeout(()=>{
                 this.setState({
                 startedOnce: true,
@@ -62,12 +66,6 @@ class Game extends Component {
             var playersParsed = JSON.parse(name);
             this.setState({players : playersParsed});
           })
-
-        let { id } = this.props.params;
-        const material =  generate({exactly: 25, join: " ", seed: id});
-        this.setState({
-            testContent: material,
-        });
     }
 
     componentDidUpdate(){
@@ -178,7 +176,7 @@ class Game extends Component {
                     this.state.finished && this.state.stats && <div className={styles.leadHead}>Results</div>
                 }
                 {
-                    this.state.finished && <div>Accuracy: {100*(1-(this.state.errorCnt/this.state.testContent.length))}%</div>
+                    this.state.finished && <div className={styles.accuracy}>Accuracy: {100*(1-(this.state.errorCnt/this.state.testContent.length))}%</div>
                 }
                 {this.state.finished && this.state.stats &&
                     this.state.stats.map((stat)=>{
