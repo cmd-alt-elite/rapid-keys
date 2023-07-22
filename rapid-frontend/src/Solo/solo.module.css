@@ -69,3 +69,12 @@
 	/* align-items: center; */
 	width: 50%;
 }
+
+strong {
+	font-size: 30px;
+}
+
+.accuracy {
+	margin-top: 15px;
+	color: white;
+}

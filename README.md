@@ -16,8 +16,7 @@ Front-end hosted on : https://rapid-keys.netlify.app/
 Back-end hosted on : https://rapid-keys-back.onrender.com/
 
 ## Technology
-The front-end of the application has been developed using ReactJS. The back-end is built using Node.js, Express and Socket.io. Also, the Cloud Firestore database provided by Firebase has been used as a database. 
-
+The front-end of the application has been developed using ReactJS. The back-end is built using Node.js, Express and Socket.io. Also, the Cloud Firestore database provided by Firebase has been used as a database. Postman has been used to test the Socket and API calls.
 ## Features
 - enter username
 - start matchmaking

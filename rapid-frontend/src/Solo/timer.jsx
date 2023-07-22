@@ -1,6 +1,11 @@
 import React, { Component } from 'react';
 import styles from "./solo.module.css";
+import axios from 'axios';
+import { useParams } from "react-router-dom";
 
+function withParams(Component) {
+	return props => <Component {...props} params={useParams()} />;
+}
 class Timer extends Component{
 	constructor(props) {
         super(props);
@@ -12,7 +17,8 @@ class Timer extends Component{
             timerTime: 0,
 			userInput: props.userInput,
 			currentWPM: 0,
-			finalWPM: 0
+			finalWPM: 0,
+			id: this.props.params.id
         }
 		this.baseState = this.state;
     }
@@ -27,6 +33,12 @@ class Timer extends Component{
 
 	componentDidUpdate(prevProps, prevState){
 		if(this.props.finished !== prevProps.finished){
+			console.log(this.state.id);
+			console.log(this.state.currentWPM);
+			axios.post(`https://rapid-keys-back.onrender.com/solo`, {
+                username: this.state.id,
+				wpm: this.state.currentWPM
+            }).catch((e)=>{console.log(e)})
 			clearInterval(this.timer);
 			this.setState({
 				timerOn: false,
@@ -65,4 +77,4 @@ class Timer extends Component{
 	}
 }
 
-export default Timer;
+export default withParams(Timer);

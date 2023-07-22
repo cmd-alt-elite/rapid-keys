@@ -3,9 +3,10 @@ import { generate } from "random-words";
 import styles from './solo.module.css';
 import Timer from "./timer";
 import { useParams } from "react-router-dom";
-import { socket } from "../Socket/sockets";
 import NewGameBtn from "./newBtn";
 import ProgressBar from 'react-bootstrap/ProgressBar';
+import HomeBtn from "./homeBtn";
+import axios from "axios";
 
 function withParams(Component) {
   return props => <Component {...props} params={useParams()} />;
@@ -75,10 +76,16 @@ class Solo extends Component {
         this.setState({
             userInput: e.target.value
         })
+
+        if(e.target.value.slice(-1) !== this.state.testContent[e.target.value.length-1]){
+            var updateErrCnt = this.state.errorCnt;
+            this.setState({
+                errorCnt: updateErrCnt+1
+            })
+        }
+
         if(e.target.value === this.state.testContent){
-            
             this.inputRef.current.disabled = true;
-            
             this.setState({
                 started: true,
                 finished: false,
@@ -91,7 +98,7 @@ class Solo extends Component {
 			<div className={styles.gameWrapper}>
                 <h3>rapid keys : solo</h3>
                 {
-                    !this.state.startedOnce && <div className={styles.isReady}>The game will start in <strong>{this.state.timeTillBegin}</strong> seconds.</div>
+                    !this.state.startedOnce && <div className={styles.isReady}><strong>{this.state.timeTillBegin}</strong></div>
                 }
                 <div>
                     {this.state.startedOnce ? <Timer finished={this.state.finished} started={this.started} userInput={this.state.userInput} updateTempWPM={this.updateTempWPM}></Timer> : null}
@@ -122,6 +129,9 @@ class Solo extends Component {
                             autoFocus
                         ></input>
                     </div>
+                    {
+                        !this.state.finished && <div class={styles.accuracy}><b>Accuracy: {(100*(1-(this.state.errorCnt/this.state.testContent.length))).toFixed(2)}%</b></div>
+                    }
                     {this.state.startedOnce && 
                     <div className={styles.progressWrap}>
                         <div className={styles.progress}>
@@ -130,6 +140,7 @@ class Solo extends Component {
                     </div>}
                 </div>}
                 {this.state.startedOnce && <NewGameBtn/>}
+                 <HomeBtn/>
 			</div>
 		)
 	}

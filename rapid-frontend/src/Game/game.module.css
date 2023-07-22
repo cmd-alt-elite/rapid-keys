@@ -106,5 +106,10 @@
 }
 
 strong {
-	font-size: 20px;
+	font-size: 30px;
+}
+
+.accuracy {
+	margin-top: 15px;
+	color: white;
 }
