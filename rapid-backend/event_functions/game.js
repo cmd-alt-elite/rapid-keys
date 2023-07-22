@@ -58,9 +58,7 @@ export const gameProgressLoop = (io, socket, room) => {
     }, 1000 * GAME_DURATION);
     
     const timer = setInterval(async () => {
-        
         let playerList = await getRoomPlayers(io, room);
-        // console.log(JSON.stringify(playerList));
         io.in(room).emit('receive_progress', JSON.stringify(playerList));
         
         let finished = true;
