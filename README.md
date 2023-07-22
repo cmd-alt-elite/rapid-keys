@@ -1,8 +1,24 @@
 # rapid-keys
 
-A realtime typing webapp.
+# Table of Contents
 
-### Features
+- [Introduction](#introduction)
+- [Technology](#technology)
+- [Features](#features)
+- [Installation](#installation)
+- [Contributing](#contributing)
+- [License](#license)
+
+## Introduction  
+RapidKeys is a speed typing application with both single-player and multi-player game modes. It was prepared as a submission for the Tally CodeBrews 2023 Hackathon under the "Commander of Full Stack" domain. 
+
+Front-end hosted on : https://rapid-keys.netlify.app/ 
+Back-end hosted on : https://rapid-keys-back.onrender.com/
+
+## Technology
+The front-end of the application has been developed using ReactJS. The back-end is built using Node.js, Express and Socket.io. Also, the Cloud Firestore database provided by Firebase has been used as a database. 
+
+## Features
 - enter username
 - start matchmaking
 - as soon as match is found, you can join the room
@@ -16,17 +32,9 @@ A realtime typing webapp.
 - global leaderboard
 - display all other users in your room
 
+## Installation
 
-### Pending Features
-- choose difficulty
-- choose game time
-- map user data forever via username
+## Contributing
 
+## License
 
-
-Tech stack : ReactJS + Node JS + Express + Socket.io
-
-Front-end hosted on : https://rapid-keys.netlify.app/ 
-Back-end hosted on : https://rapid-keys-back.onrender.com/
-
-Team : Sarthak + Kartike + Nishant
