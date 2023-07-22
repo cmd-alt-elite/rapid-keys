@@ -5,6 +5,7 @@ import 'react-dropdown/style.css';
 import './sockets.css'
 import { useNavigate } from 'react-router-dom';
 import Form from 'react-bootstrap/Form'
+import {Button} from 'react-bootstrap'
 
 
 const options = [
@@ -39,11 +40,19 @@ function SocketsSolo() {
     console.log(difficulty)
 }
 
+
+const goHome = ()=>{
+  navigate("/");
+}
+
   return (
     <div className="socketWrapper">
+            <div className="head">
+
+          <h3 onClick={goHome}>rapid keys - solo</h3>
+</div>
       <div>
-        {/* <label htmlFor="">Username </label> */}
-        <Form.Control size="lg" type="text" placeholder="Large text" />
+        <label htmlFor="">Username </label>
         <input
           onChange={(event) => {
             setUsername(event.target.value);
@@ -53,7 +62,9 @@ function SocketsSolo() {
       </div>
       <div className="flexDiff"><label htmlFor="">Difficulty</label><div className="difficulty-dropdown"><Dropdown options={options} value={defaultOption} placeholder="Select an option" onChange={onSelect} /></div></div>
       
-      <button onClick={makeMatch} className="match-button"> Start Game!</button>
+      {/* <button onClick={makeMatch} className="match-button"> Start Game!</button> */}
+      <Button variant="primary" onClick = {makeMatch} className="matchmakingBtn">Start Game!</Button>
+
       <br />
     </div>
   );

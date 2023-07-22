@@ -58,6 +58,32 @@ body {
 
 }
 
+.leaderSelect {
+	margin-top: 50px;
+	display: flex;
+	justify-content: space-around;
+}
+
+.leader{
+	background-color: #004052;
+	padding: 1vw;
+	padding-top: 3vw;
+	padding-bottom: 3vw;
+	width: 20%;
+	color: white;
+	font-family: 'Inter', sans-serif;
+	font-size: 1.5vw;
+	cursor: pointer;
+}
+
+.leader>img{
+	width: 40%;
+	/* margin-left: 1.75vw; */
+	
+}
+
+
+
 .leaderboardWrapper{
 	display: flex;
 	justify-content: center;
