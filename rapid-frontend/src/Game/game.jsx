@@ -7,6 +7,7 @@ import { socket } from "../Socket/sockets";
 import NewGameBtn from "./newBtn";
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import axios from "axios";
 
 function withParams(Component) {
     
@@ -42,14 +43,13 @@ class Game extends Component {
     }
 
     componentDidMount(){
-        
         socket.on("game_start", (leBool)=>{
             this.setState({readyToPlay: true});
             setTimeout(()=>{
                 this.setState({
-                startedOnce: leBool,
-                started: leBool,
-                finished: !leBool,
+                startedOnce: true,
+                started: true,
+                finished: false,
             })
         }, 5000) 
             var leInterval = setInterval(()=>{
@@ -107,7 +107,6 @@ class Game extends Component {
             this.setState({
                 started: false,
                 finished: true,
-                progress: 100,
             })
         }
     }
@@ -177,6 +176,9 @@ class Game extends Component {
                 </div>}
                 {
                     this.state.finished && this.state.stats && <div className={styles.leadHead}>Results</div>
+                }
+                {
+                    this.state.finished && <div>Accuracy: {100*(1-(this.state.errorCnt/this.state.testContent.length))}%</div>
                 }
                 {this.state.finished && this.state.stats &&
                     this.state.stats.map((stat)=>{
