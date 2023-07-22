@@ -38,8 +38,3 @@ The front-end of the application has been developed using ReactJS. The back-end 
 
 ## License
 
-## License
-
-
-
-Team : Sarthak + Kartike + Nishant
