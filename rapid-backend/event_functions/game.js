@@ -15,7 +15,14 @@ export const startGame = (io, socket, room) => {
         end: false,
     });
 
-    const randomText = generateText('easy');
+    let difficulty = "";
+    if (room.substring(0, 4) === 'easy') difficulty = 'easy';
+    else if (room.substring(0, 4) === 'hard') difficulty = 'hard';
+    else difficulty = 'medium';
+
+    console.log(`The difficulty is ${difficulty}`);
+
+    const randomText = generateText(difficulty);
 
     io.in(room).emit('game_start', randomText);
 

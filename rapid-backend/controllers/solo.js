@@ -9,7 +9,8 @@ export const soloController = {
         console.log('Called save solo record API.');
 
         let data = req.body;
-
+        console.log(data);
+        
         try {
             let record = new GameRecord(data.username, data.wpm);
 
