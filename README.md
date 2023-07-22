@@ -2,11 +2,12 @@
 
 # Table of Contents
 
-## Introduction
-## Features
-## Installation
-## Contributing
-## License
+- [Introduction](#introduction)
+- [Technology](#technology)
+- [Features](#features)
+- [Installation](#installation)
+- [Contributing](#contributing)
+- [License](#license)
 
 ## Introduction  
 RapidKeys is a speed typing application with both single-player and multi-player game modes. It was prepared as a submission for the Tally CodeBrews 2023 Hackathon under the "Commander of Full Stack" domain. 
@@ -34,6 +35,8 @@ The front-end of the application has been developed using ReactJS. The back-end 
 ## Installation
 
 ## Contributing
+
+## License
 
 ## License
 
