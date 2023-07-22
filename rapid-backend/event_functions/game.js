@@ -3,6 +3,7 @@ import { ROOM_CAPACITY, GAME_DURATION, PROGRESS_UPDATE_TIMEOUT, LOBBY_WAIT_TIME 
 import { multiplayerController } from "../controllers/multiplayer.js";
 import { GameRecord } from "../models/game-record.js";
 import { getRoomPlayers } from "./room.js";
+import { generateText } from "../utils/random-generator.js";
 
 export const sendProgress = (io, socket, data) => {
     socket.progress = data.progress;
@@ -13,7 +14,10 @@ export const startGame = (io, socket, room) => {
         start: true,
         end: false,
     });
-    io.in(room).emit('game_start', true);
+
+    const randomText = generateText();
+
+    io.in(room).emit('game_start', randomText);
 
     gameProgressLoop(io, socket, room);
 }
