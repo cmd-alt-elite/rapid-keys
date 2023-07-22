@@ -90,10 +90,13 @@
 }
 
 .playersHead {
+	margin-top: 15px;
 	color: white;
+	font-size: 26px;
 }
 
 .playersWrap {
+	font-size: 16px;
 	color: white;
 }
 

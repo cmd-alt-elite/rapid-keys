@@ -118,6 +118,9 @@ class Game extends Component {
                     The game will start in 30 seconds or as soon as 3 players have joined the room.
                     </div>: null
                 }
+                <div>
+                    {this.state.startedOnce ? <Timer finished={this.state.finished} started={this.started} userInput={this.state.userInput} updateTempWPM={this.updateTempWPM}></Timer> : null}
+                </div>
                 {
                     !this.state.startedOnce && <div className={styles.playersHead}>Players in Lobby</div>
                 }
@@ -132,9 +135,7 @@ class Game extends Component {
                 {
                     !this.state.startedOnce && this.state.readyToPlay && <div className={styles.isReady}><strong>{this.state.timeTillBegin}</strong></div>
                 }
-                <div>
-                    {this.state.startedOnce ? <Timer finished={this.state.finished} started={this.started} userInput={this.state.userInput} updateTempWPM={this.updateTempWPM}></Timer> : null}
-                </div>
+                
                 {this.state.startedOnce && 
                 <div className={styles.testWrapper}>
                     <div className={styles.promptContainer}>
@@ -176,7 +177,7 @@ class Game extends Component {
                     this.state.finished && this.state.stats && <div className={styles.leadHead}>Results</div>
                 }
                 {
-                    this.state.finished && <div className={styles.accuracy}>Accuracy: {100*(1-(this.state.errorCnt/this.state.testContent.length))}%</div>
+                    this.state.finished && <div className={styles.accuracy}>Accuracy: {(100*(1-(this.state.errorCnt/this.state.testContent.length))).toFixed(2)}%</div>
                 }
                 {this.state.finished && this.state.stats &&
                     this.state.stats.map((stat)=>{

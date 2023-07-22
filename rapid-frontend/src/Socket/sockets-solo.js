@@ -47,10 +47,9 @@ const goHome = ()=>{
 
   return (
     <div className="socketWrapper">
-            <div className="head">
-
+          <div className="head">
           <h3 onClick={goHome}>rapid keys - solo</h3>
-</div>
+          </div>
       <div>
         <label htmlFor="">Username </label>
         <input
@@ -64,6 +63,7 @@ const goHome = ()=>{
       
       {/* <button onClick={makeMatch} className="match-button"> Start Game!</button> */}
       <Button variant="primary" onClick = {makeMatch} className="matchmakingBtn">Start Game!</Button>
+      <Button variant="primary" onClick = {goHome} className="matchmakingBtn">Back to Home</Button>
 
       <br />
     </div>

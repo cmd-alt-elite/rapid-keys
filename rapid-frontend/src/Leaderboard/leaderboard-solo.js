@@ -2,6 +2,7 @@ import styles from './leaderboard.module.css';
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import { Button } from 'react-bootstrap';
 
 const SoloLeaderboard = () => {
 
@@ -14,11 +15,15 @@ const SoloLeaderboard = () => {
             setAllEntries(response.data.leaderboard);
         })   
     }, [])
-    
+
+    const goHome = ()=>{
+        navigate("/");
+      }
 
     return ( 
         <div>
             <h1 className={styles.head}>Leaderboard - Practice Mode</h1>
+            <Button variant="primary" onClick = {goHome} className="matchmakingBtn">Back to Home</Button>
                     {allEntries  &&
                         allEntries.map(leaderboard => {
                             return (
@@ -35,6 +40,7 @@ const SoloLeaderboard = () => {
                             )
                         })
                     }
+                    
             </div>
     );
 }
