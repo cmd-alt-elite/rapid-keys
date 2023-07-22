@@ -15,7 +15,7 @@ export const startGame = (io, socket, room) => {
         end: false,
     });
 
-    const randomText = generateText();
+    const randomText = generateText('easy');
 
     io.in(room).emit('game_start', randomText);
 
