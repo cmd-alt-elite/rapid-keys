@@ -13,7 +13,7 @@ function withParams(Component) {
 }
 
 // TODO: real time wpm
-// FIXME: listen for backend ka game end
+// FIXME: listen for backend ka game_end
 // FIXME: reload after matchmaking is buggy
 // TODO: show accuracy to others
 
@@ -67,7 +67,7 @@ class Game extends Component {
     }
 
     componentDidUpdate(){
-        socket.emit("send_progress", {progress: Math.min(Math.round(100*(this.state.userInput.length+this.state.errorCnt)/(this.state.testContent.length+this.state.errorCnt)), 100)})
+        socket.emit("send_progress", {progress: Math.min(Math.round(100*(this.state.userInput.length+this.state.errorCnt)/(this.state.testContent.length+this.state.errorCnt)), 100), current_wpm: 69})
         socket.on("receive_progress", (progress)=>{
             var progressParsed = JSON.parse(progress);
             this.setState({progress: progressParsed});
@@ -121,7 +121,7 @@ class Game extends Component {
                     </div>: null
                 }
                 <div>
-                    {this.state.startedOnce ? <Timer finished={this.state.finished} started={this.started} userInput={this.state.userInput} errorCnt={this.state.errorCnt}></Timer> : null}
+                    {this.state.startedOnce ? <Timer finished={this.state.finished} started={this.started} errorCnt={this.state.errorCnt} userInput={this.state.userInput}></Timer> : null}
                 </div>
                 {
                     this.state.finished && <div className={styles.accuracy}>Accuracy: {(100*(1-(this.state.errorCnt/this.state.testContent.length))).toFixed(2)}%</div>
@@ -174,7 +174,7 @@ class Game extends Component {
                             {progress.username}  
                             </div>
                             <div className={styles.sthYaar}>
-                                <ProgressBar now={progress.progress} striped animated = "true" className={styles.progress}/>
+                                <ProgressBar now={progress.progress} striped animated = "true" className={styles.progress}/> {progress.current_wpm}wpm
                             </div>
                         </div>
                     )})}
@@ -187,7 +187,7 @@ class Game extends Component {
                     this.state.stats.map((stat)=>{
                         if(stat.wpm !== -1){
                             return (<div className={styles.leaderboard}>
-                                {stat.username}: {stat.wpm}wpm and {stat.accuracy}% accurate.
+                                {stat.username}: {stat.wpm}wpm and {stat.accuracy}% accuracy
                             </div>)
                         }else{return null}
                     })

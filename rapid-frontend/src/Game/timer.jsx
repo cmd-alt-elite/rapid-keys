@@ -34,7 +34,10 @@ class Timer extends Component{
 	componentDidUpdate(prevProps, prevState){
 		if(this.props.finished !== prevProps.finished){
 			clearInterval(this.timer);
-			socket.emit("send_stats", {room: this.state.id, wpm: this.state.currentWPM, accuracy: (100*(1-(this.state.errorCnt/this.props.userInput.length))).toFixed(2)});
+			console.log((100*(1-(this.props.errorCnt/this.props.userInput.length))).toFixed(2));
+			console.log(this.props.errorCnt);
+			console.log(this.props.userInput.length);
+			socket.emit("send_stats", {room: this.state.id, wpm: this.state.currentWPM, accuracy: (100*(1-(this.props.errorCnt/this.props.userInput.length))).toFixed(2)});
 			this.setState({
 				timerOn: false,
 				timerStart: 0,
