@@ -11,6 +11,7 @@ class Timer extends Component{
 	constructor(props) {
         super(props);
         this.state = {
+			testContent: props.testContent,
             timerOn: false,
             timerStart: 0,
 			started: props.started,
@@ -32,6 +33,9 @@ class Timer extends Component{
 	}
 
 	componentDidUpdate(prevProps, prevState){
+		if(this.props.userInput !== prevProps.userInput){
+			socket.emit("send_progress", {progress: Math.min(Math.round(100*(this.props.userInput.length+this.props.errorCnt)/(this.props.testContent.length+this.props.errorCnt)), 100), current_wpm: this.state.currentWPM})
+		}
 		if(this.props.finished !== prevProps.finished){
 			clearInterval(this.timer);
 			console.log((100*(1-(this.props.errorCnt/this.props.userInput.length))).toFixed(2));
