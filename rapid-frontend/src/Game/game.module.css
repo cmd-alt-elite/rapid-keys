@@ -116,3 +116,27 @@ strong {
 	margin-top: 15px;
 	color: white;
 }
+
+.btnWrap {
+	padding: 5px;
+	display: flex;
+	padding: 15px;
+	align-items: center;
+	justify-content: center;
+}
+
+.btnWrap>Button {
+	margin-right: 20px;
+}
+
+.leaderbtn {
+	background-color: rgb(255, 208, 0);
+	border: 1px solid rgb(255, 208, 0);
+	color: black;
+}
+
+.leaderbtn:hover {
+	background-color: rgb(213, 176, 10);
+	border: 1px solid rgb(255, 208, 0);
+	color: black;
+}

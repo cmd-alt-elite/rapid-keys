@@ -13,6 +13,7 @@ function withParams(Component) {
 }
 
 // TODO: real time wpm
+// FIXME: listen for backend ka game end
 // FIXME: reload after matchmaking is buggy
 // TODO: show accuracy to others
 // TODO: choose #players
@@ -120,6 +121,9 @@ class Game extends Component {
                     {this.state.startedOnce ? <Timer finished={this.state.finished} started={this.started} userInput={this.state.userInput} updateTempWPM={this.updateTempWPM}></Timer> : null}
                 </div>
                 {
+                    this.state.finished && <div className={styles.accuracy}>Accuracy: {(100*(1-(this.state.errorCnt/this.state.testContent.length))).toFixed(2)}%</div>
+                }
+                {
                     !this.state.startedOnce && <div className={styles.playersHead}>Players in Lobby</div>
                 }
                 {
@@ -174,9 +178,7 @@ class Game extends Component {
                 {
                     this.state.finished && this.state.stats && <div className={styles.leadHead}>Results</div>
                 }
-                {
-                    this.state.finished && <div className={styles.accuracy}>Accuracy: {(100*(1-(this.state.errorCnt/this.state.testContent.length))).toFixed(2)}%</div>
-                }
+                
                 {this.state.finished && this.state.stats &&
                     this.state.stats.map((stat)=>{
                         if(stat.wpm !== -1){
