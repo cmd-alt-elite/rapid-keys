@@ -5,8 +5,6 @@ import 'react-dropdown/style.css';
 import './sockets.css'
 import { useNavigate } from 'react-router-dom';
 import { Button } from "react-bootstrap";
-import Form from 'react-bootstrap/Form'
-
 
 const options = [
   'easy', 'medium', 'hard'

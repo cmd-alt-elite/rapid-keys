@@ -12,9 +12,8 @@ function withParams(Component) {
   return props => <Component {...props} params={useParams()} />;
 }
 
-// TODO: solo difficulty
+// TODO: real time wpm
 // TODO: show accuracy to others
-// TODO: switch to time based system instead of completion based?
 // TODO: choose #players
 
 class Game extends Component {

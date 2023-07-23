@@ -4,7 +4,6 @@ import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
 import './sockets.css';
 import { useNavigate } from 'react-router-dom';
-import Form from 'react-bootstrap/Form';
 import {Button} from 'react-bootstrap';
 import { generateText } from "../Solo/generator";
 

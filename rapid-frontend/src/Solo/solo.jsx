@@ -6,7 +6,6 @@ import { useParams } from "react-router-dom";
 import NewGameBtn from "./newBtn";
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import HomeBtn from "./homeBtn";
-import axios from "axios";
 
 function withParams(Component) {
   return props => <Component {...props} params={useParams()} />;
