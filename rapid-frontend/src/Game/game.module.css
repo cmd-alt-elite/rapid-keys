@@ -6,6 +6,9 @@
 	padding-right: 10px;
 }
 
+.currentWpm {
+	margin-left: 10px
+}
 
 .gameWrapper {
 	height: 100vh;

@@ -12,10 +12,8 @@ function withParams(Component) {
   return props => <Component {...props} params={useParams()} />;
 }
 
-// TODO: real time wpm
 // FIXME: listen for backend ka game_end
 // FIXME: reload after matchmaking is buggy
-// TODO: show accuracy to others
 
 class Game extends Component {
 	constructor(props) {
@@ -174,8 +172,8 @@ class Game extends Component {
                             <div className={styles.sthYaar}>
                                 <ProgressBar now={progress.progress} striped animated = "true" className={styles.progress}/> 
                             </div>
-                            <div>
-                                {progress.current_wpm}wpm
+                            <div className={styles.currentWpm}>
+                                <b>{progress.current_wpm}wpm</b>
                             </div>
                         </div>
                     )})}
