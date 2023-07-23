@@ -12,7 +12,6 @@ function withParams(Component) {
   return props => <Component {...props} params={useParams()} />;
 }
 
-// FIXME: listen for backend ka game_end
 // FIXME: reload after matchmaking is buggy
 
 class Game extends Component {
@@ -35,6 +34,8 @@ class Game extends Component {
             progress: null,
             players : null,
             stats: null,
+
+            backOver: false,
         }
     }
 
@@ -73,6 +74,10 @@ class Game extends Component {
             var statsParsed = JSON.parse(stats);
             this.setState({stats: statsParsed});
         })
+        socket.on("game_end", (leBool)=>{
+            this.setState({backOver: leBool});
+            console.log(leBool);
+        })
     }
 
     preventCopyPaste = (e) => {
@@ -100,6 +105,14 @@ class Game extends Component {
         }
 
         if(e.target.value === this.state.testContent){
+            this.inputRef.current.disabled = true;
+            this.setState({
+                started: false,
+                finished: true,
+            })
+        }
+        
+        if(this.state.backOver === true){
             this.inputRef.current.disabled = true;
             this.setState({
                 started: false,
