@@ -2,11 +2,11 @@ import io from "socket.io-client";
 import { useEffect, useState } from "react";
 import Dropdown from 'react-dropdown';
 import 'react-dropdown/style.css';
-import './sockets.css'
+import './sockets.css';
 import { useNavigate } from 'react-router-dom';
-import Form from 'react-bootstrap/Form'
-import {Button} from 'react-bootstrap'
-
+import Form from 'react-bootstrap/Form';
+import {Button} from 'react-bootstrap';
+import { generateText } from "../Solo/generator";
 
 const options = [
   'easy', 'medium', 'hard'
@@ -17,7 +17,7 @@ export var nameArr = [];
 
 export const socket = io.connect("https://rapid-keys-back.onrender.com/");
 
-function SocketsSolo() {
+function SocketsSolo({setSoloText}) {
   const navigate = useNavigate();
 
   //Room State
@@ -30,6 +30,7 @@ function SocketsSolo() {
   const makeMatch = () => {
     if(username !== ""){
       setRoom(username);
+      sessionStorage.setItem("username", username);
       navigate('/solo/' + username, { replace: true });
     }
   }
@@ -38,12 +39,21 @@ function SocketsSolo() {
     console.log('You selected ', option.label);
     setDifficulty(option.label)
     console.log(difficulty)
-}
+  }
 
+  useEffect(()=>{
+    if(sessionStorage.getItem("username")!==null){
+      setUsername(sessionStorage.getItem("username"));
+    }
+  }, [])
 
-const goHome = ()=>{
-  navigate("/");
-}
+  useEffect(()=>{
+    setSoloText(generateText(difficulty));
+  }, [difficulty])
+
+  const goHome = ()=>{
+    navigate("/");
+  }
 
   return (
     <div className="socketWrapper">
@@ -57,6 +67,7 @@ const goHome = ()=>{
             setUsername(event.target.value);
           }}
           className="username-field"
+          value={username}
         />
       </div>
       <div className="flexDiff"><label htmlFor="">Difficulty</label><div className="difficulty-dropdown"><Dropdown options={options} value={defaultOption} placeholder="Select an option" onChange={onSelect} /></div></div>

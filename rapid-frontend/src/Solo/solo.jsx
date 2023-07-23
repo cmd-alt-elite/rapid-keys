@@ -17,6 +17,7 @@ class Solo extends Component {
         super(props);
         this.inputRef = createRef();
         this.state = {
+            soloText: props.soloText,
             testContent: "",
 
             userInput: "",
@@ -59,9 +60,16 @@ class Solo extends Component {
         const material =  generate({exactly: 25, join: " "});
         console.log(material)
         console.log(id)
-        this.setState({
-            testContent: material,
-        });
+        if(!this.props.soloText){
+            this.setState({
+                testContent: material,
+            });
+        }
+        else{
+            this.setState({
+                testContent: this.props.soloText
+            })
+        }  
     }
 
     startGame(){

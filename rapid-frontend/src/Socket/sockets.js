@@ -33,10 +33,18 @@ function Sockets() {
   const makeMatch = () => {
     console.log("matchmaking started...");
     if(username !== ""){
+      sessionStorage.setItem("username", username);
       socket.emit("find_match", {"difficulty": difficulty, "username": username});
     }
     console.log("matchmaking ended...")
   }
+
+  useEffect(()=>{
+    if(sessionStorage.getItem("username")!==null){
+      setUsername(sessionStorage.getItem("username"));
+    }
+  }, [])
+
 
   useEffect(() => {
     console.log("its happening")
@@ -73,6 +81,7 @@ const goHome = ()=>{
             setUsername(event.target.value);
           }}
           className="username-field"
+          value={username}
         />
       </div>
       <div className="flexDiff"><label htmlFor="">Difficulty</label><div className="difficulty-dropdown"><Dropdown options={options} value={defaultOption} placeholder="Select an option" onChange={onSelect} /></div></div>

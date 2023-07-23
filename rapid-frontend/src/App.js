@@ -8,16 +8,18 @@ import { Routes, Route } from 'react-router-dom';
 import SocketsSolo from './Socket/sockets-solo';
 import Leaderboard from './Leaderboard/leaderboard';
 import SoloLeaderboard from './Leaderboard/leaderboard-solo';
+import { useState } from 'react';
 
 function App() {
+  const [soloText, setSoloText] = useState();
   return (
     <div className="App">
       <Routes>
         <Route exact path="/" element={<Landing/>}/>
         <Route exact path="/online" element={<Sockets/>}/>
         <Route path="/game/:id" element={<Game/>}/>
-        <Route path = "/solo/" element = {<SocketsSolo/>}/>
-        <Route path = "solo/:id" element = {<Solo/>}/>
+        <Route path = "/solo/" element = {<SocketsSolo setSoloText={setSoloText}/>}/>
+        <Route path = "solo/:id" element = {<Solo soloText={soloText}/>}/>
         <Route path = "/leaderboard" element = {<Leaderboard/>}/>
         <Route path = "/solo-leaderboard" element = {<SoloLeaderboard/>}/>
       </Routes>

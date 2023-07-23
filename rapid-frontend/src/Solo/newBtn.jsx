@@ -1,7 +1,9 @@
 import { Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 const NewGameBtn = () => {
+	const navigate = useNavigate();
 	const backToMM = () => {
-		window.location.reload(false);
+		navigate("/solo");
 	}
 	return (
 		<div>

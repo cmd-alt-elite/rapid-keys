@@ -1,5 +1,4 @@
 import React, { Component, createRef } from "react";
-import { generate } from "random-words";
 import styles from './game.module.css';
 import Timer from "./timer";
 import { useParams } from "react-router-dom";
@@ -7,15 +6,14 @@ import { socket } from "../Socket/sockets";
 import NewGameBtn from "./newBtn";
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import axios from "axios";
 
 function withParams(Component) {
     
   return props => <Component {...props} params={useParams()} />;
 }
 
-// TODO: quotes for difficulty?
-// TODO: show accuracy
+// TODO: solo difficulty
+// TODO: show accuracy to others
 // TODO: switch to time based system instead of completion based?
 // TODO: choose #players
 
