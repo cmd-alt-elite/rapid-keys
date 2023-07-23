@@ -12,6 +12,7 @@ export const getRoomPlayers = async (io, room) => {
             id: socket.id,
             username: socket.username,
             progress: socket.progress,
+            current_wpm: socket.current_wpm,
         });
     });
 
@@ -25,6 +26,7 @@ export const joinRoom = (io, socket, data) => {
     socket.join(data.room);
 
     socket.progress = 0;
+    socket.current_wpm = 0;
     socket.wpm = -1;
 
     getRoomPlayers(io, data.room).then((playerList) => {

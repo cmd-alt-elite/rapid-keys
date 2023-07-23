@@ -7,6 +7,7 @@ import { generateText } from "../utils/random-generator.js";
 
 export const sendProgress = (io, socket, data) => {
     socket.progress = data.progress;
+    socket.current_wpm = data.current_wpm;
 };
 
 export const startGame = (io, socket, room) => {
