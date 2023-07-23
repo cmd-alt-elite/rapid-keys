@@ -151,8 +151,8 @@ class Solo extends Component {
                         </div>
                     </div>}
                 </div>}
-                {this.state.startedOnce && <NewGameBtn/>}
                  <HomeBtn/>
+                {this.state.startedOnce && <NewGameBtn/>}
 			</div>
 		)
 	}

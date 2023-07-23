@@ -16,7 +16,6 @@ function withParams(Component) {
 // FIXME: listen for backend ka game end
 // FIXME: reload after matchmaking is buggy
 // TODO: show accuracy to others
-// TODO: choose #players
 
 class Game extends Component {
 	constructor(props) {
@@ -122,7 +121,7 @@ class Game extends Component {
                     </div>: null
                 }
                 <div>
-                    {this.state.startedOnce ? <Timer finished={this.state.finished} started={this.started} userInput={this.state.userInput} updateTempWPM={this.updateTempWPM}></Timer> : null}
+                    {this.state.startedOnce ? <Timer finished={this.state.finished} started={this.started} userInput={this.state.userInput} errorCnt={this.state.errorCnt}></Timer> : null}
                 </div>
                 {
                     this.state.finished && <div className={styles.accuracy}>Accuracy: {(100*(1-(this.state.errorCnt/this.state.testContent.length))).toFixed(2)}%</div>
@@ -188,7 +187,7 @@ class Game extends Component {
                     this.state.stats.map((stat)=>{
                         if(stat.wpm !== -1){
                             return (<div className={styles.leaderboard}>
-                                {stat.username}: {stat.wpm}
+                                {stat.username}: {stat.wpm}wpm and {stat.accuracy}% accurate.
                             </div>)
                         }else{return null}
                     })

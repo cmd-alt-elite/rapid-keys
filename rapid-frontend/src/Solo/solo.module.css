@@ -80,3 +80,15 @@ strong {
 	margin-top: 15px;
 	color: white;
 }
+
+.btnWrap {
+	padding: 5px;
+	display: flex;
+	padding: 15px;
+	align-items: center;
+	justify-content: center;
+}
+
+.btnWrap>Button {
+	margin-right: 15px;
+}
