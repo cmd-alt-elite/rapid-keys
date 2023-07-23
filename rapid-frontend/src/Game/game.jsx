@@ -12,8 +12,6 @@ function withParams(Component) {
   return props => <Component {...props} params={useParams()} />;
 }
 
-// FIXME: reload after matchmaking is buggy
-
 class Game extends Component {
 	constructor(props) {
         super(props);
@@ -34,12 +32,16 @@ class Game extends Component {
             progress: null,
             players : null,
             stats: null,
+            isInRoom: props.isInRoom,
 
             backOver: false,
         }
     }
 
     componentDidMount(){
+        if(!this.props.isInRoom){
+            window.location.replace("/online");
+        }
         socket.on("game_start", (text)=>{
             console.log(text);
             this.setState({

@@ -15,7 +15,7 @@ export var nameArr = [];
 
 export const socket = io.connect("https://rapid-keys-back.onrender.com/");
 
-function Sockets() {
+function Sockets({setIsInRoom}) {
   const navigate = useNavigate();
   //Room State
   const [roomvar, setRoom] = useState("");
@@ -48,6 +48,7 @@ function Sockets() {
     console.log("its happening")
     socket.on("receive_match", (room) => {
       console.log("room number alloted is  " + room);
+      setIsInRoom(true);
       setRoom(room);
       console.log("match found!");
       socket.emit("join_room", {"room": room});
