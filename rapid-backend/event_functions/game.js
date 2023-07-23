@@ -39,12 +39,6 @@ export const endGame = async (io, socket, room) => {
 
     let sockets = await io.in(room).fetchSockets();
 
-    for (let socket of sockets) {
-        if (!socket.wpm) {
-            socket.wpm = -1;
-        }
-    }
-
     console.log(`Sending leaderboard to room ${room}.`);
 
     let leaderboard = [];
@@ -53,7 +47,8 @@ export const endGame = async (io, socket, room) => {
         leaderboard.push({
             id: socket.id,
             username: socket.username,
-            wpm: socket.wpm
+            wpm: socket.wpm,
+            accuracy: socket.accuracy,
         });
     });
 
@@ -100,14 +95,9 @@ export const gameProgressLoop = (io, socket, room) => {
 
 export const sendStats = async (io, socket, data) => {
     socket.wpm = data.wpm;
+    socket.accuracy = data.accuracy;
 
     let sockets = await io.in(data.room).fetchSockets();
-
-    for (let socket of sockets) {
-        if (!socket.wpm) {
-            socket.wpm = -1;
-        }
-    }
 
     console.log(`Sending stats to room ${data.room}.`);
 
@@ -117,7 +107,8 @@ export const sendStats = async (io, socket, data) => {
         stats.push({
             id: socket.id,
             username: socket.username,
-            wpm: socket.wpm
+            wpm: socket.wpm,
+            accuracy: socket.accuracy,
         });
     });
 

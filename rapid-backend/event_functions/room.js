@@ -25,6 +25,7 @@ export const joinRoom = (io, socket, data) => {
     socket.join(data.room);
 
     socket.progress = 0;
+    socket.wpm = -1;
 
     getRoomPlayers(io, data.room).then((playerList) => {
         console.log('Sending players joined.');
