@@ -29,7 +29,7 @@ function SocketsSolo({setSoloText}) {
   const makeMatch = () => {
     if(username !== ""){
       setRoom(username);
-      sessionStorage.setItem("username", username);
+      localStorage.setItem("username", username);
       navigate('/solo/' + username, { replace: true });
     }
   }
@@ -41,8 +41,8 @@ function SocketsSolo({setSoloText}) {
   }
 
   useEffect(()=>{
-    if(sessionStorage.getItem("username")!==null){
-      setUsername(sessionStorage.getItem("username"));
+    if(localStorage.getItem("username")!==null){
+      setUsername(localStorage.getItem("username"));
     }
   }, [])
 

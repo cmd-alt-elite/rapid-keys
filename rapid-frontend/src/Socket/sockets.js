@@ -31,15 +31,15 @@ function Sockets() {
   const makeMatch = () => {
     console.log("matchmaking started...");
     if(username !== ""){
-      sessionStorage.setItem("username", username);
+      localStorage.setItem("username", username);
       socket.emit("find_match", {"difficulty": difficulty, "username": username});
     }
     console.log("matchmaking ended...")
   }
 
   useEffect(()=>{
-    if(sessionStorage.getItem("username")!==null){
-      setUsername(sessionStorage.getItem("username"));
+    if(localStorage.getItem("username")!==null){
+      setUsername(localStorage.getItem("username"));
     }
   }, [])
 

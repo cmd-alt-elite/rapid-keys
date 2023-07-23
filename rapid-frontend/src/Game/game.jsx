@@ -13,6 +13,7 @@ function withParams(Component) {
 }
 
 // TODO: real time wpm
+// FIXME: reload after matchmaking is buggy
 // TODO: show accuracy to others
 // TODO: choose #players
 
