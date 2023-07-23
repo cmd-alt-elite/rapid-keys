@@ -39,6 +39,10 @@ class Solo extends Component {
         }
     }
 
+    preventCopyPaste = (e) => {
+        e.preventDefault();
+    }
+        
     componentDidMount(){
             this.setState({readyToPlay: true});
             setTimeout(()=>{
@@ -133,6 +137,7 @@ class Solo extends Component {
                             className={styles.testInput}
                             placeholder="Start typing here..."
                             onChange={(e) => this.handleUserInputChange(e)}
+                            onPaste={(e) => this.preventCopyPaste(e)}
                             autoFocus
                         ></input>
                     </div>

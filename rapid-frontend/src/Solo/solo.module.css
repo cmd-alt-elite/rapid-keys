@@ -2,7 +2,10 @@
 
 .gameWrapper h3 {
 	margin-left: 2vw;
-	background-color: white;
+	background-color: transparent;
+	border: 3px solid #03fcca;
+	color: #03fcca;
+	margin-top: 15px;
 	width: 20%;
 	padding-top: 1vw;
 	padding-bottom: 1vw;
@@ -41,7 +44,8 @@
 
 .inputContainer>input {
 	width: 70%;
-	height: 2vw;
+	height: 4vw;
+	font-size: 20px;
 }
 
 .timer {
@@ -65,8 +69,6 @@
 }
 
 .progress {
-	/* display: flex;  */
-	/* align-items: center; */
 	width: 50%;
 }
 

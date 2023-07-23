@@ -11,28 +11,30 @@
     /* padding-bottom: 0px; */
 }
 
-.matchmakingBtn{
+.matchmakingBtn {
     margin-top: 2vh;
 }
 
 
 .head {
-	border-radius: 10px;
-	background-color: white;
-	width: 30%;
+    border-radius: 10px;
+    background-color: transparent;
+    border: 3px solid #03fcca;
+    width: 25%;
     margin-bottom: 5vh;
+    color: #03fcca;
+    padding-top: 14px;
+    padding-bottom: 8px;
 }
 
 .head>h3 {
-	font-family: 'Inter', sans-serif;
-	font-size: 2vw;
+    font-family: 'Inter', sans-serif;
+    font-size: 2vw;
     cursor: pointer;
 }
 
 .username-field {
-    /* width: 15%; */
-    /* margin-top: 50px; */
-    height: 2vw;
+    height: 3vw;
     margin-bottom: 10px;
 }
 

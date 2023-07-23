@@ -5,7 +5,6 @@ import leader from "../Assets/leader.png";
 import leaderSolo from "../Assets/leader-solo.png";
 
 import { useNavigate } from "react-router-dom";
-import Leaderboard from "../Leaderboard/leaderboard";
 
 const Landing = () => {
 	const navigate = useNavigate();
@@ -40,12 +39,6 @@ const Landing = () => {
 			<div className={styles.leader} onClick={handleSoloLeaderboard}><img src={leaderSolo} alt="" /><br />Leaderboard (Solo)</div>
 			<div className={styles.leader} onClick={handleLeaderboard}><img src={leader} alt="" /><br />Leaderboard</div>
 			</div>
-			{/* <div className={styles.leaderboardWrapper}>
-			<div className={styles.leaderboardBtn} onClick={handleLeaderboard}><img src={leader} alt="" /><br />Leaderboard</div>
-			<div className= {styles.leaderboardWrapper}>
-			<div className={styles.leaderboardBtn} onClick={handleSoloLeaderboard}><img src={leader} alt="" /><br />Leaderboard - Practice Mode</div> */}
-			 {/* </div> */}
-{/* </div> */}
 		</div>
 	);
 }

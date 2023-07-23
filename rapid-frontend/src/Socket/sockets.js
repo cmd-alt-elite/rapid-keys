@@ -69,11 +69,11 @@ const goHome = ()=>{
   return (
     <div className="socketWrapper">
       <div className="head">
-					<h3 onClick={goHome}>rapid keys</h3>
-				</div>
+        <h3 onClick={goHome}>rapid keys</h3>
+      </div>
 
       <div>
-        <label htmlFor="">Enter a username</label>
+        <label htmlFor="">Enter a username &nbsp;</label>
         <input
           onChange={(event) => {
             setUsername(event.target.value);
@@ -84,7 +84,6 @@ const goHome = ()=>{
       </div>
       <div className="flexDiff"><label htmlFor="">Difficulty</label><div className="difficulty-dropdown"><Dropdown options={options} value={defaultOption} placeholder="Select an option" onChange={onSelect} /></div></div>
       <Button variant="primary" onClick = {makeMatch} className="matchmakingBtn">Start Matchmaking!</Button>
-      {/* <button onClick={makeMatch} className="match-button"> Enter Matchmaking!</button> */}
       {roomvar && <div>
         <h3>Alloted Room :</h3>
         {roomvar}

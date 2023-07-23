@@ -78,8 +78,12 @@ class Game extends Component {
             this.setState({stats: statsParsed});
         })
     }
+
+    preventCopyPaste = (e) => {
+        e.preventDefault();
+      }
         
-    startGame(){
+    startGame = () => {
         this.setState({
             startedOnce: true,
             started: true,
@@ -161,6 +165,7 @@ class Game extends Component {
                             className={styles.testInput}
                             placeholder="Start typing here..."
                             onChange={(e) => this.handleUserInputChange(e)}
+                            onPaste={(e) => this.preventCopyPaste(e)}
                             autoFocus
                         ></input>
                     </div>

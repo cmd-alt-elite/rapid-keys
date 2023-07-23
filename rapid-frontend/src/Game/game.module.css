@@ -14,7 +14,10 @@
 
 .gameWrapper h3 {
 	margin-left: 2vw;
-	background-color: white;
+	background-color: transparent;
+	border: 3px solid #03fcca;
+	color: #03fcca;
+	margin-top: 15px;
 	width: 20%;
 	padding-top: 1vw;
 	padding-bottom: 1vw;

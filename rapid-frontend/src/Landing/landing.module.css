@@ -9,20 +9,27 @@ body {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	/* margin-bottom: 3vw; */
-
+	-webkit-touch-callout: none;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
 }
 
 .heading {
 	border-radius: 10px;
-	background-color: white;
-	width: 30%;
+	background-color: transparent;
+	border: 3px solid #03fcca;
+	width: 25%;
+	color: #03fcca;
+	padding-top: 14px;
+	padding-bottom: 8px;
 }
 
 .heading>h3 {
 	font-family: 'Inter', sans-serif;
 	font-size: 2vw;
-	cursor: pointer;
 }
 
 .modeSelect {
