@@ -6,6 +6,7 @@ import { socket } from "../Socket/sockets";
 import NewGameBtn from "./newBtn";
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Btns from "./btns";
 
 function withParams(Component) {
     
@@ -130,6 +131,7 @@ class Game extends Component {
                 <h3>rapid keys</h3>
                 {!this.state.startedOnce ? <div className={styles.wait}>
                     The game will start in 30 seconds or as soon as 3 players have joined the room.
+                    <Btns></Btns>
                     </div>: null
                 }
                 <div>
