@@ -13,7 +13,7 @@ export const generateText = (difficulty) => {
             maxLength: 10,
             join: ' '
         });
-    } else if (difficulty == 'medium') {
+    } else if (difficulty === 'medium') {
         randomText = generate({
             exactly: TEXT_LENGTH,
             join: ' ',

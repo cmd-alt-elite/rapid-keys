@@ -12,12 +12,13 @@ import { useState } from 'react';
 
 function App() {
   const [soloText, setSoloText] = useState();
+  const [isInRoom, setIsInRoom] = useState(false);
   return (
     <div className="App">
       <Routes>
         <Route exact path="/" element={<Landing/>}/>
-        <Route exact path="/online" element={<Sockets/>}/>
-        <Route path="/game/:id" element={<Game/>}/>
+        <Route exact path="/online" element={<Sockets setIsInRoom={setIsInRoom}/>}/>
+        <Route path="/game/:id" element={<Game isInRoom={isInRoom}/>}/>
         <Route path = "/solo/" element = {<SocketsSolo setSoloText={setSoloText}/>}/>
         <Route path = "solo/:id" element = {<Solo soloText={soloText}/>}/>
         <Route path = "/leaderboard" element = {<Leaderboard/>}/>

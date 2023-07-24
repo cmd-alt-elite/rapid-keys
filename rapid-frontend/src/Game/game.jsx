@@ -6,16 +6,12 @@ import { socket } from "../Socket/sockets";
 import NewGameBtn from "./newBtn";
 import ProgressBar from 'react-bootstrap/ProgressBar';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Btns from "./btns";
 
 function withParams(Component) {
     
   return props => <Component {...props} params={useParams()} />;
 }
-
-// TODO: real time wpm
-// FIXME: listen for backend ka game end
-// FIXME: reload after matchmaking is buggy
-// TODO: show accuracy to others
 
 class Game extends Component {
 	constructor(props) {
@@ -37,10 +33,16 @@ class Game extends Component {
             progress: null,
             players : null,
             stats: null,
+            isInRoom: props.isInRoom,
+
+            backOver: false,
         }
     }
 
     componentDidMount(){
+        if(!this.props.isInRoom){
+            window.location.replace("/online");
+        }
         socket.on("game_start", (text)=>{
             console.log(text);
             this.setState({
@@ -67,7 +69,6 @@ class Game extends Component {
     }
 
     componentDidUpdate(){
-        socket.emit("send_progress", {progress: Math.min(Math.round(100*(this.state.userInput.length+this.state.errorCnt)/(this.state.testContent.length+this.state.errorCnt)), 100)})
         socket.on("receive_progress", (progress)=>{
             var progressParsed = JSON.parse(progress);
             this.setState({progress: progressParsed});
@@ -75,6 +76,10 @@ class Game extends Component {
         socket.on("receive_stats", (stats)=>{
             var statsParsed = JSON.parse(stats);
             this.setState({stats: statsParsed});
+        })
+        socket.on("game_end", (leBool)=>{
+            this.setState({backOver: leBool});
+            console.log(leBool);
         })
     }
 
@@ -109,6 +114,14 @@ class Game extends Component {
                 finished: true,
             })
         }
+        
+        if(this.state.backOver === true){
+            this.inputRef.current.disabled = true;
+            this.setState({
+                started: false,
+                finished: true,
+            })
+        }
     }
 
 	render(){
@@ -118,10 +131,11 @@ class Game extends Component {
                 <h3>rapid keys</h3>
                 {!this.state.startedOnce ? <div className={styles.wait}>
                     The game will start in 30 seconds or as soon as 3 players have joined the room.
+                    <Btns></Btns>
                     </div>: null
                 }
                 <div>
-                    {this.state.startedOnce ? <Timer finished={this.state.finished} started={this.started} userInput={this.state.userInput} errorCnt={this.state.errorCnt}></Timer> : null}
+                    {this.state.startedOnce ? <Timer finished={this.state.finished} started={this.started} errorCnt={this.state.errorCnt} userInput={this.state.userInput} testContent={this.state.testContent}></Timer> : null}
                 </div>
                 {
                     this.state.finished && <div className={styles.accuracy}>Accuracy: {(100*(1-(this.state.errorCnt/this.state.testContent.length))).toFixed(2)}%</div>
@@ -140,7 +154,6 @@ class Game extends Component {
                 {
                     !this.state.startedOnce && this.state.readyToPlay && <div className={styles.isReady}><strong>{this.state.timeTillBegin}</strong></div>
                 }
-                
                 {this.state.startedOnce && 
                 <div className={styles.testWrapper}>
                     <div className={styles.promptContainer}>
@@ -170,24 +183,26 @@ class Game extends Component {
                     </div>
                     {this.state.startedOnce && this.state.progress && this.state.progress.map((progress)=>{return(
                         <div className={styles.progressBarWrap}>
-                            <div className={styles.username-progress}>
-                            {progress.username}  
+                            <div className={styles.usernameProgress}>
+                            {progress.username}:
                             </div>
                             <div className={styles.sthYaar}>
-                                <ProgressBar now={progress.progress} striped animated = "true" className={styles.progress}/>
+                                <ProgressBar now={progress.progress} striped animated = "true" className={styles.progress}/> 
+                            </div>
+                            <div className={styles.currentWpm}>
+                                <b>{progress.current_wpm}wpm</b>
                             </div>
                         </div>
                     )})}
                 </div>}
                 {
-                    this.state.finished && this.state.stats && <div className={styles.leadHead}>Results</div>
+                    this.state.finished && this.state.stats && <div className={styles.leadHead}><strong>Results</strong></div>
                 }
-                
                 {this.state.finished && this.state.stats &&
                     this.state.stats.map((stat)=>{
                         if(stat.wpm !== -1){
                             return (<div className={styles.leaderboard}>
-                                {stat.username}: {stat.wpm}wpm and {stat.accuracy}% accurate.
+                                {stat.username}: <b>{stat.wpm}wpm</b> and <b>{stat.accuracy}%</b> accuracy
                             </div>)
                         }else{return null}
                     })
