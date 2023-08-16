@@ -33,6 +33,7 @@
 	font-family: 'Inter', sans-serif;
 	margin-top: 2vw;
 	margin-bottom: 2vw;
+	white-space: pre-wrap;
 
 	-webkit-touch-callout: none;
 	-webkit-user-select: none;
